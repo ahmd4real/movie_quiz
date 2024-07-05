@@ -97,101 +97,53 @@ class QuizQuestion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: ListView(
-        
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Container(
-                    height: MediaQuery.of(context).size.height * 0.2, 
-                    child: ListView(
-            scrollDirection: Axis.horizontal,
-            //dragStartBehavior: ,
-            children: [
-              for (int i=0;i<5;i++)
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(18.0),
-                    color: kWhite,
-                
-                  ),
-                  width: MediaQuery.of(context).size.width * 0.5,
-                 
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("${i+1}"),
-                      const SizedBox(height: 8.0),
-                      Container(width: MediaQuery.of(context).size.width * 0.2,margin: const EdgeInsets.symmetric(vertical: 4.0),height: 2,color: kGreen,),
-                      const Text("سكور: 0"),
-                    ],
-                  ),
-                ),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      Text(question.question,
+          style: const TextStyle(
+              fontSize: 30.0, color: Colors.white, fontFamily: kPrimeFont)),
+      const SizedBox(height: 20.0),
+      ...question.options.asMap().entries.map((entry) {
+        int idx = entry.key;
+        String answer = entry.value;
+        Color buttonColor;
+
+        if (selectedAnswerIndex == null) {
+          buttonColor = noColor;
+        } else if (idx == selectedAnswerIndex) {
+          buttonColor = isCorrect! ? kGreen : kRed;
+        } else {
+          buttonColor = noColor;
+        }
+
+        return Container(
+          margin: const EdgeInsets.symmetric(
+            vertical: 7.0,
+          ),
+          width: 200.0,
+          decoration: BoxDecoration(
+            color: buttonColor,
+            border: Border.all(color: kLightBlue, width: 1.2),
+            borderRadius: BorderRadius.circular(24.0),
+          ),
+          child: ElevatedButton(
+            onPressed: selectedAnswerIndex == null
+                ? () => onAnswerSelected(idx)
+                : null,
+            style: ButtonStyle(
+              backgroundColor: WidgetStateProperty.resolveWith<Color>(
+                (Set<WidgetState> states) {
+                  return buttonColor;
+                },
               ),
-             
-            ],
-                    ),
-                  ),
+            ),
+            child: Text(
+              answer,
+              style: const TextStyle(
+                  color: Colors.white, fontSize: 16, fontFamily: kPrimeFont),
+            ),
           ),
-      const SizedBox(height: 32,),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(question.question,
-                  style: const TextStyle(
-                      fontSize: 30.0, color: Colors.white, fontFamily: kPrimeFont)),
-              const SizedBox(height: 20.0),
-              ...question.options.asMap().entries.map((entry) {
-                int idx = entry.key;
-                String answer = entry.value;
-                Color buttonColor;
-          
-                if (selectedAnswerIndex == null) {
-                  buttonColor = noColor;
-                } else if (idx == selectedAnswerIndex) {
-                  buttonColor = isCorrect! ? kGreen : kRed;
-                } else {
-                  buttonColor = noColor;
-                }
-          
-                return Container(
-                  margin: const EdgeInsets.symmetric(
-                    vertical: 7.0,
-                  ),
-                  width: 200.0,
-                  decoration: BoxDecoration(
-                    color: buttonColor,
-                   
-                    border: Border.all(color: kLightBlue, width: 1.2),
-                    borderRadius: BorderRadius.circular(24.0),
-                  ),
-                  child: ElevatedButton(
-                    onPressed: selectedAnswerIndex == null
-                        ? () => onAnswerSelected(idx)
-                        : null,
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.resolveWith<Color>(
-                        (Set<WidgetState> states) {
-                          return buttonColor;
-                        },
-                      ),
-                    ),
-                    child: Text(
-                      answer,
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontFamily: kPrimeFont),
-                    ),
-                  ),
-                );
-              }),
-            ],
-          ),
-        ],
-      ),
-    );
+        );
+      }),
+    ]));
   }
 }
