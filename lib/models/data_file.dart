@@ -28,7 +28,27 @@ final data = [
   ]),
   Question(question: "احنا بتوع الأتوبيس", answerIndex: 0, options: [
     "احنا بتوع الأتوبيس",
-    "اللمبي",
+    "اللwerمبي",
     "الكيف",
+  ]),
+  Question(question: "احنا بتوع الأتوبيس", answerIndex: 0, options: [
+    "احنا بتوع الأتوبيس",
+    "الerلمبي",
+    "الكيف",
+  ]),
+  Question(question: "احنا  الأتوبيس", answerIndex: 0, options: [
+    "hاحنا بتوع erwالأتوبيس",
+    "اللمبhي",
+    "الhكيف",
+  ]),
+  Question(question: "احنا بتوع الأتوبيس", answerIndex: 0, options: [
+    "احنا بتوعqer الأتوبيس",
+    "اللhمبي",
+    "الhكيف",
+  ]),
+  Question(question: "احنا بتوع الأتوبيس", answerIndex: 0, options: [
+    "احنerا بتوع الأتوبيس",
+    "اwerللمبي",
+    "اfdلكيف",
   ]),
 ];

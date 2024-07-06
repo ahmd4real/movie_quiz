@@ -16,6 +16,8 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      cursorColor: kWhite,
+      style: const TextStyle(color: kWhite,fontFamily: font),
       controller: controller,
       keyboardType: keyboardType,
       decoration: InputDecoration(
@@ -32,6 +34,10 @@ class CustomTextField extends StatelessWidget {
           borderSide: BorderSide(color: kWhite),
         ),
         labelText: labelText,
+        hintStyle: const TextStyle(
+          
+          color: kWhite
+        ),
         labelStyle: const TextStyle(
             color: kWhite, fontFamily: font, fontSize: 20),
       ),

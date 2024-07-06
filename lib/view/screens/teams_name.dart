@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/view/screens/home_page.dart';
 import 'package:movie_quiz/view/screens/quiz_page.dart';
+import 'package:movie_quiz/view/widgets/custom_button.dart';
 import 'package:movie_quiz/view/widgets/custom_text_field.dart';
 
 int i = 0;
 List<String> teamNames = [];
-
 
 class TeamsNamePage extends StatefulWidget {
   const TeamsNamePage({super.key});
@@ -73,25 +73,14 @@ class _TeamsNamePageState extends State<TeamsNamePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all<Color>(
-                    kAnswerColor,
-                  ),
-                ),
-                onPressed: () {
+              CustomButton(
+                color: kMove,
+                text: "اللي بعده",
+                onTap: () {
                   saveTeamNames();
                   Navigator.pushReplacementNamed(context, QuizPage.id);
                 },
-                child: const Text(
-                  "اللي بعده",
-                  style: TextStyle(
-                      color: kWhite,
-                      fontFamily: font,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 24),
-                ),
-              ),
+              )
             ],
           )
         ],

@@ -1,10 +1,11 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:movie_quiz/constants.dart';
+
 import 'package:movie_quiz/view/screens/home_page.dart';
 import 'package:movie_quiz/view/screens/quiz_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:movie_quiz/view/screens/results_page.dart';
 import 'generated/l10n.dart';
 import 'package:movie_quiz/view/screens/teams_name.dart';
 
@@ -34,6 +35,7 @@ class MovieQuiz extends StatelessWidget {
         HomePage.id:(context)=>  HomePage(),
         TeamsNamePage.id:(context)=> const TeamsNamePage(),
         QuizPage.id:(context)=> const QuizPage(),
+        ResultsPage.id:(context)=> const ResultsPage(),
       },
       initialRoute: HomePage.id,
     );

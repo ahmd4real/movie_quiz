@@ -1,13 +1,19 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/generated/l10n.dart';
 import 'package:movie_quiz/models/data_file.dart';
+import 'package:movie_quiz/view/screens/home_page.dart';
+import 'package:movie_quiz/view/screens/results_page.dart';
 import 'package:movie_quiz/view/screens/teams_name.dart';
+import 'package:movie_quiz/view/widgets/custom_button.dart';
 import 'package:timer_count_down/timer_controller.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 
-int currentQuestion = 0;
+int currentQuestion = Random().nextInt(data.length);
 int teamIndex = 0;
+List<int> teamQuestionCount = List.filled(NumebrOfTeams, 0);
+List<int>score=List.filled(NumebrOfTeams,0);
 
 class QuizPage extends StatefulWidget {
   const QuizPage({super.key});
@@ -23,19 +29,23 @@ class _QuizPageState extends State<QuizPage> {
   bool? _isCorrect;
   final CountdownController _controller = CountdownController(autoStart: true);
   bool _quizStarted = false;
+  int totalQuestionsAsked = 0;
 
   void nextQuestion() {
     setState(() {
       answerState = false;
       _selectedAnswerIndex = null;
       _isCorrect = null;
-      if (currentQuestion < data.length - 1) {
-        teamIndex++;
-        currentQuestion++;
-      } else {
+      teamQuestionCount[teamIndex]++;
+      totalQuestionsAsked++;
+      
+      if (totalQuestionsAsked >= NumebrOfTeams * 10) {
         currentQuestion = -1;
+      } else {
+        teamIndex = (teamIndex + 1) % teamNames.length;
+        currentQuestion = Random().nextInt(data.length);
+        _controller.restart();
       }
-      _controller.restart();
     });
   }
 
@@ -43,6 +53,7 @@ class _QuizPageState extends State<QuizPage> {
     if (!answerState) {
       bool isCorrect = index == data[currentQuestion].answerIndex;
       setState(() {
+        score[teamIndex]+=isCorrect?1:0;
         _selectedAnswerIndex = index;
         _isCorrect = isCorrect;
         answerState = true;
@@ -73,26 +84,38 @@ class _QuizPageState extends State<QuizPage> {
                     onNextQuestion: nextQuestion,
                   )
                 : Center(
-                    child: Text(S.of(context).Quizfinished),
+                    child: Column(
+                      children: [
+                        Text(S.of(context).Quizfinished,
+                            style: const TextStyle(
+                                fontFamily: teamFont, color: kYellow2)),
+                        CustomButton(
+                            color: kMove,
+                            text: "مين اللي كسب",
+                            onTap: () {
+                              
+                              Navigator.pushReplacementNamed(
+                                  context, ResultsPage.id);
+                            }),
+                      ],
+                    ),
                   )
             : Center(
                 child: ElevatedButton(
                   style: ButtonStyle(
-                      backgroundColor: const WidgetStatePropertyAll(kDarkBlue),
-                      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(45.0),
-                        ),
-                      )),
+                      backgroundColor: WidgetStateProperty.all(kDarkBlue),
+                      shape: WidgetStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(45.0),
+                      ))),
                   onPressed: () {
                     setState(() {
                       _quizStarted = true;
                       _controller.start();
                     });
                   },
-                  child: Text(
-                    currentQuestion == 0 ? "ابدأ" : "اللي بعده",
-                    style: const TextStyle(
+                  child: const Text(
+                    "ابدأ",
+                    style: TextStyle(
                         color: kWhite,
                         fontFamily: font,
                         fontWeight: FontWeight.w700,
@@ -113,7 +136,7 @@ class QuizQuestion extends StatelessWidget {
   final Function(int) onAnswerSelected;
   final VoidCallback onNextQuestion;
 
-  QuizQuestion({
+  const QuizQuestion({
     super.key,
     required this.question,
     required this.selectedAnswerIndex,
@@ -223,7 +246,9 @@ class QuizQuestion extends StatelessWidget {
             child: const Text(
               "اللي بعده",
               style: TextStyle(
-                  fontFamily: font, fontWeight: FontWeight.w700, fontSize: 24),
+                  fontFamily: font,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 24),
             ))
       ]),
     );

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
+import 'package:movie_quiz/view/screens/results_page.dart';
 import 'package:movie_quiz/view/screens/teams_name.dart';
+import 'package:movie_quiz/view/widgets/custom_button.dart';
 import 'package:movie_quiz/view/widgets/custom_text_field.dart';
 
 int NumebrOfTeams = 0;
@@ -38,24 +40,11 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
     
-              ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all<Color>(
-                    kAnswerColor,)
-                ),
-                  onPressed: () {
-                    NumebrOfTeams = int.parse(controller.text);
-                    Navigator.pushReplacementNamed(context, TeamsNamePage.id);
-                    
-                  },
-                  child: const Text(
-                    "اللي بعده",
-                    style: TextStyle(
-                      color: kWhite,
-                        fontFamily: font,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 24),
-                  )),
+              CustomButton(color: kMove, text: "اللي بعده", onTap: () {
+                NumebrOfTeams = int.parse(controller.text);
+                     Navigator.pushReplacementNamed(context, TeamsNamePage.id);
+              })
+             
             
             ],
           )
