@@ -4,13 +4,43 @@ import 'package:movie_quiz/view/screens/home_page.dart';
 import 'package:movie_quiz/view/screens/quiz_page.dart';
 import 'package:movie_quiz/view/widgets/custom_text_field.dart';
 
+int i = 0;
+List<String> teamNames = [];
 
 
-int i=0;
-List<String> names = [];
-class TeamsNamePage extends StatelessWidget {
+class TeamsNamePage extends StatefulWidget {
   const TeamsNamePage({super.key});
   static const String id = "teams_name_page";
+
+  @override
+  State<TeamsNamePage> createState() => _TeamsNamePageState();
+}
+
+class _TeamsNamePageState extends State<TeamsNamePage> {
+  List<TextEditingController> controllers = [];
+
+  @override
+  void initState() {
+    super.initState();
+    for (i = 0; i < NumebrOfTeams; i++) {
+      controllers.add(TextEditingController());
+    }
+  }
+
+  @override
+  void dispose() {
+    for (var controller in controllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
+  void saveTeamNames() {
+    teamNames.clear();
+    for (var controller in controllers) {
+      teamNames.add(controller.text);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,47 +52,49 @@ class TeamsNamePage extends StatelessWidget {
         title: const Text("Movie Quiz"),
       ),
       body: ListView(
-       children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 32.0),
-          child: Container(
-            height: MediaQuery.of(context).size.height * 0.3,
-            width: double.infinity,
-            child:Image.asset('assets/images/header.png'),
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 32.0),
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.3,
+              width: double.infinity,
+              child: Image.asset('assets/images/header.png'),
+            ),
           ),
-        )
-        ,
-        for (i=0;i<NumebrOfTeams;i++)
-         Padding(
-          padding:  const EdgeInsets.symmetric(vertical: 16.0,horizontal: 32),
-          child: CustomTextField(labelText: "فريق ${i+1}"),
-        ),
-
-        Row(
+          for (i = 0; i < NumebrOfTeams; i++)
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32),
+              child: CustomTextField(
+                labelText: "فريق ${i + 1}",
+                controller: controllers[i],
+              ),
+            ),
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-    
               ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: WidgetStateProperty.all<Color>(
-                    kAnswerColor,)
+                    kAnswerColor,
+                  ),
                 ),
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, QuizPage.id);
-                  },
-                  child: const Text(
-                    "اللي بعده",
-                    style: TextStyle(
+                onPressed: () {
+                  saveTeamNames();
+                  Navigator.pushReplacementNamed(context, QuizPage.id);
+                },
+                child: const Text(
+                  "اللي بعده",
+                  style: TextStyle(
                       color: kWhite,
-                        fontFamily: font,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 24),
-                  )),
-            
+                      fontFamily: font,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 24),
+                ),
+              ),
             ],
           )
-       ],
-        
+        ],
       ),
     );
   }

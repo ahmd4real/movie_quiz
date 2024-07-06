@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/generated/l10n.dart';
 import 'package:movie_quiz/models/data_file.dart';
+import 'package:movie_quiz/view/screens/teams_name.dart';
 import 'package:timer_count_down/timer_controller.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 
 int currentQuestion = 0;
+int teamIndex = 0;
 
 class QuizPage extends StatefulWidget {
   const QuizPage({super.key});
@@ -28,6 +30,7 @@ class _QuizPageState extends State<QuizPage> {
       _selectedAnswerIndex = null;
       _isCorrect = null;
       if (currentQuestion < data.length - 1) {
+        teamIndex++;
         currentQuestion++;
       } else {
         currentQuestion = -1;
@@ -45,7 +48,7 @@ class _QuizPageState extends State<QuizPage> {
         answerState = true;
       });
 
-      Future.delayed(const Duration(milliseconds: 3000), () {
+      Future.delayed(const Duration(milliseconds: 300), () {
         nextQuestion();
       });
     }
@@ -75,14 +78,12 @@ class _QuizPageState extends State<QuizPage> {
             : Center(
                 child: ElevatedButton(
                   style: ButtonStyle(
-                    
-                    backgroundColor: const WidgetStatePropertyAll(kDarkBlue),
-                    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(45.0),
-                      ),
-                    )
-                  ),
+                      backgroundColor: const WidgetStatePropertyAll(kDarkBlue),
+                      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(45.0),
+                        ),
+                      )),
                   onPressed: () {
                     setState(() {
                       _quizStarted = true;
@@ -91,9 +92,11 @@ class _QuizPageState extends State<QuizPage> {
                   },
                   child: Text(
                     currentQuestion == 0 ? "ابدأ" : "اللي بعده",
-                    
-                    style: const TextStyle(color: kWhite
-                      ,fontFamily: font,fontWeight: FontWeight.w700, fontSize: 48),
+                    style: const TextStyle(
+                        color: kWhite,
+                        fontFamily: font,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 48),
                   ),
                 ),
               ),
@@ -124,12 +127,16 @@ class QuizQuestion extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        const Text("مركز شباب ضبعه",
-            style: TextStyle(color: kYellow2, fontFamily: teamFont, fontSize: 48)),
+        Text(teamNames[teamIndex],
+            style: const TextStyle(
+                color: kYellow2, fontFamily: teamFont, fontSize: 48)),
         const SizedBox(height: 48),
         Text(question.question,
             style: const TextStyle(
-                fontSize: 32.0, color: Colors.white, fontWeight: FontWeight.w700,fontFamily: font)),
+                fontSize: 32.0,
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+                fontFamily: font)),
         const SizedBox(height: 20.0),
         ...question.options.asMap().entries.map((entry) {
           int idx = entry.key;
@@ -169,7 +176,10 @@ class QuizQuestion extends StatelessWidget {
               child: Text(
                 answer,
                 style: const TextStyle(
-                    color: Colors.white, fontSize: 24, fontWeight: FontWeight.w700,fontFamily: font),
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: font),
               ),
             ),
           );
@@ -210,9 +220,10 @@ class QuizQuestion extends StatelessWidget {
               controller.start();
               onNextQuestion();
             },
-            child:const  Text(
-               "اللي بعده",
-              style:  TextStyle(fontFamily: font,fontWeight: FontWeight.w700, fontSize: 24),
+            child: const Text(
+              "اللي بعده",
+              style: TextStyle(
+                  fontFamily: font, fontWeight: FontWeight.w700, fontSize: 24),
             ))
       ]),
     );

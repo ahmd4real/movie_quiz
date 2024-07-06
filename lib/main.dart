@@ -31,7 +31,7 @@ class MovieQuiz extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       locale: const Locale('ar'),
       routes: {
-        HomePage.id:(context)=> const HomePage(),
+        HomePage.id:(context)=>  HomePage(),
         TeamsNamePage.id:(context)=> const TeamsNamePage(),
         QuizPage.id:(context)=> const QuizPage(),
       },

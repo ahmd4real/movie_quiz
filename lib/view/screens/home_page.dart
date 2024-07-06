@@ -6,9 +6,9 @@ import 'package:movie_quiz/view/widgets/custom_text_field.dart';
 int NumebrOfTeams = 0;
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+   HomePage({super.key});
   static const String id = "home_page";
-
+  TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +31,8 @@ class HomePage extends StatelessWidget {
           Padding(
               padding: const EdgeInsets.all(32.0),
               child: CustomTextField(
-                labelText: 'هتلعبوا كام تيم ؟!',
+                keyboardType: TextInputType.number,
+                labelText: 'هتلعبوا كام تيم ؟!', controller: controller,
               )),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -43,7 +44,9 @@ class HomePage extends StatelessWidget {
                     kAnswerColor,)
                 ),
                   onPressed: () {
+                    NumebrOfTeams = int.parse(controller.text);
                     Navigator.pushReplacementNamed(context, TeamsNamePage.id);
+                    
                   },
                   child: const Text(
                     "اللي بعده",
