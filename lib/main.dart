@@ -35,7 +35,7 @@ class MovieQuiz extends StatelessWidget {
         TeamsNamePage.id:(context)=> const TeamsNamePage(),
         QuizPage.id:(context)=> const QuizPage(),
       },
-      initialRoute: QuizPage.id,
+      initialRoute: HomePage.id,
     );
   }
 }

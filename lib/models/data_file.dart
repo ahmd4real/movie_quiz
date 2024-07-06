@@ -16,7 +16,7 @@ final data = [
     "اللمبي",
     "الكيف",
   ]),
-  Question(question: "احنا بتوع الأتوبيس", answerIndex: 0, options: [
+  Question(question: "احنا  الأتوبيس", answerIndex: 0, options: [
     "احنا بتوع الأتوبيس",
     "اللمبي",
     "الكيف",

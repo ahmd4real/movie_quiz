@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/view/screens/home_page.dart';
 import 'package:movie_quiz/view/screens/quiz_page.dart';
+import 'package:movie_quiz/view/widgets/custom_text_field.dart';
 
 
 
@@ -15,7 +15,9 @@ class TeamsNamePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kBackgroundColor,
       appBar: AppBar(
+        backgroundColor: kBackgroundColor,
         centerTitle: true,
         title: const Text("Movie Quiz"),
       ),
@@ -32,27 +34,33 @@ class TeamsNamePage extends StatelessWidget {
         ,
         for (i=0;i<NumebrOfTeams;i++)
          Padding(
-          padding:  const EdgeInsets.all(32.0),
-          child: TextField(
-            onSubmitted: (value) => names.add(value),
-            //keyboardType: TextInputType.number,
-            decoration:  InputDecoration(
-              border: const OutlineInputBorder(),
-              labelText: 'Team $i',
-            ),
-          ),
+          padding:  const EdgeInsets.symmetric(vertical: 16.0,horizontal: 32),
+          child: CustomTextField(labelText: "فريق ${i+1}"),
         ),
 
-        Padding(
-          padding:  const EdgeInsets.all(32.0),
-          child: ElevatedButton(
-            onPressed: () => Navigator.pushNamed(context, QuizPage.id),
-            style: ElevatedButton.styleFrom(
-              foregroundColor: kWhite, backgroundColor: kGrey,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(30.0)),  
+        Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+    
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.all<Color>(
+                    kAnswerColor,)
+                ),
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, QuizPage.id);
+                  },
+                  child: const Text(
+                    "اللي بعده",
+                    style: TextStyle(
+                      color: kWhite,
+                        fontFamily: font,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 24),
+                  )),
+            
+            ],
           )
-        ), child: const Text("Start",style: TextStyle(color: kWhite,fontSize: 30),),))
        ],
         
       ),
