@@ -13,7 +13,7 @@ import 'package:timer_count_down/timer_count_down.dart';
 int currentQuestion = Random().nextInt(data.length);
 int teamIndex = 0;
 List<int> teamQuestionCount = List.filled(NumebrOfTeams, 0);
-List<int>score=List.filled(NumebrOfTeams,0);
+List<int> score = List.filled(NumebrOfTeams, 0);
 
 class QuizPage extends StatefulWidget {
   const QuizPage({super.key});
@@ -38,7 +38,7 @@ class _QuizPageState extends State<QuizPage> {
       _isCorrect = null;
       teamQuestionCount[teamIndex]++;
       totalQuestionsAsked++;
-      
+
       if (totalQuestionsAsked >= NumebrOfTeams * 10) {
         currentQuestion = -1;
       } else {
@@ -53,7 +53,7 @@ class _QuizPageState extends State<QuizPage> {
     if (!answerState) {
       bool isCorrect = index == data[currentQuestion].answerIndex;
       setState(() {
-        score[teamIndex]+=isCorrect?1:0;
+        score[teamIndex] += isCorrect ? 1 : 0;
         _selectedAnswerIndex = index;
         _isCorrect = isCorrect;
         answerState = true;
@@ -86,14 +86,10 @@ class _QuizPageState extends State<QuizPage> {
                 : Center(
                     child: Column(
                       children: [
-                        Text(S.of(context).Quizfinished,
-                            style: const TextStyle(
-                                fontFamily: teamFont, color: kYellow2)),
                         CustomButton(
                             color: kMove,
                             text: "مين اللي كسب",
                             onTap: () {
-                              
                               Navigator.pushReplacementNamed(
                                   context, ResultsPage.id);
                             }),
@@ -154,12 +150,28 @@ class QuizQuestion extends StatelessWidget {
             style: const TextStyle(
                 color: kYellow2, fontFamily: teamFont, fontSize: 48)),
         const SizedBox(height: 48),
-        Text(question.question,
-            style: const TextStyle(
-                fontSize: 32.0,
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-                fontFamily: font)),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxHeight: 120,
+            ),
+            child: FittedBox(
+              child: Text(question.question,
+                  style: const TextStyle(
+                      fontSize: 32.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: font)),
+            ),
+          ),
+        ),
+        // Text(question.question,
+        //     style: const TextStyle(
+        //         fontSize: 32.0,
+        //         color: Colors.white,
+        //         fontWeight: FontWeight.w700,
+        //         fontFamily: font)),
         const SizedBox(height: 20.0),
         ...question.options.asMap().entries.map((entry) {
           int idx = entry.key;
@@ -246,9 +258,7 @@ class QuizQuestion extends StatelessWidget {
             child: const Text(
               "اللي بعده",
               style: TextStyle(
-                  fontFamily: font,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 24),
+                  fontFamily: font, fontWeight: FontWeight.w700, fontSize: 24),
             ))
       ]),
     );

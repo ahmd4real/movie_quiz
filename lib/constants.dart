@@ -9,7 +9,7 @@ const Color kGrey = Color(0xff4b5262);
 //const Color kPrimary = Color(0xff1f2429);
 
 const Color kGreen = Color(0xff26aa5e);
-const Color kRed = Color(0xfff8024f);
+const Color kRed = Color(0xfff8024f); 
 const Color kPrimary=Color(0xff701830);
 
 const Color kYellow = Color.fromARGB(255, 188, 195, 214);
@@ -33,7 +33,7 @@ const Color kAnswerColor = Color(0xff1e222d);
 const Color kMove=Color(0xff895fff);
 const Color kMoveLight=Color(0xffa080fe);
 const String font='Beiruti';
-const String teamFont='Blaka Hollow';
+const String teamFont='Blaka';
 
 
 const String appTitle='ف فيلم ايه؟';
