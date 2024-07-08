@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/view/screens/home_page.dart';
 import 'package:movie_quiz/view/screens/quiz_page.dart';
 import 'package:movie_quiz/view/screens/teams_name.dart';
+import 'package:movie_quiz/view/widgets/custom_button.dart';
 
 class ResultsPage extends StatelessWidget {
   const ResultsPage({super.key});
@@ -17,7 +17,8 @@ class ResultsPage extends StatelessWidget {
       body: AnimationLimiter(
         child: Column(
           children: [
-            SizedBox(height: MediaQuery.of(context).size.height * 0.45),
+            //SizedBox(height: MediaQuery.of(context).size.height * 0.45),
+            SizedBox(height: 48,),
             Expanded(
               child: ListView.builder(
                 padding: EdgeInsets.all(w / 30),
@@ -40,9 +41,10 @@ class ResultsPage extends StatelessWidget {
                         child: Container(
                           width: MediaQuery.of(context).size.width * 0.5,
                           margin: EdgeInsets.only(bottom: w / 20),
-                          height: w / 4,
+                          height: w / 4.5,
                           decoration: BoxDecoration(
-                            color: kMoveLight,
+                            border: Border.all(color: kYellow2),
+                            //color: kMoveLight,
                             borderRadius: const BorderRadius.all(
                               Radius.circular(20),
                             ),
@@ -77,6 +79,17 @@ class ResultsPage extends StatelessWidget {
                   );
                 },
               ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 32.0),
+              child: CustomButton(
+                
+                              color: Color.fromARGB(255, 104, 82, 184),
+                              text: "طب ما تلعب تاني يأخي",
+                              onTap: () {
+                                Navigator.pushReplacementNamed(
+                                    context, HomePage.id);
+                              }),
             ),
           ],
         ),

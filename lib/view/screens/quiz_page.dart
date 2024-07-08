@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
-import 'package:movie_quiz/generated/l10n.dart';
 import 'package:movie_quiz/models/data_file.dart';
 import 'package:movie_quiz/view/screens/home_page.dart';
 import 'package:movie_quiz/view/screens/results_page.dart';
@@ -85,7 +84,9 @@ class _QuizPageState extends State<QuizPage> {
                   )
                 : Center(
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+
                         CustomButton(
                             color: kMove,
                             text: "مين اللي كسب",
@@ -146,32 +147,24 @@ class QuizQuestion extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        //SizedBox(height: 32,),
         Text(teamNames[teamIndex],
             style: const TextStyle(
                 color: kYellow2, fontFamily: teamFont, fontSize: 48)),
-        const SizedBox(height: 48),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxHeight: 120,
-            ),
-            child: FittedBox(
-              child: Text(question.question,
-                  style: const TextStyle(
-                      fontSize: 32.0,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: font)),
-            ),
+        const SizedBox(height: 8),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.3,
+          child: Center(
+            child: Text(question.question,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.clip,
+                style: const TextStyle(
+                    fontSize: 24.0,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: font)),
           ),
         ),
-        // Text(question.question,
-        //     style: const TextStyle(
-        //         fontSize: 32.0,
-        //         color: Colors.white,
-        //         fontWeight: FontWeight.w700,
-        //         fontFamily: font)),
         const SizedBox(height: 20.0),
         ...question.options.asMap().entries.map((entry) {
           int idx = entry.key;
@@ -182,6 +175,8 @@ class QuizQuestion extends StatelessWidget {
             buttonColor = kQuiestionColor;
           } else if (idx == selectedAnswerIndex) {
             buttonColor = isCorrect! ? kGreen : kRed;
+          } else if (idx == question.answerIndex) {
+            buttonColor = kGreen;
           } else {
             buttonColor = kQuiestionColor;
           }
@@ -208,13 +203,22 @@ class QuizQuestion extends StatelessWidget {
                   },
                 ),
               ),
-              child: Text(
-                answer,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: font),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: MediaQuery.of(context).size.height / 5,
+                  maxWidth: MediaQuery.of(context).size.width / 1.5,
+                ),
+                child: FittedBox(
+                  child: Text(
+                    answer,
+                    overflow: TextOverflow.fade,
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: font),
+                  ),
+                ),
               ),
             ),
           );
@@ -226,18 +230,18 @@ class QuizQuestion extends StatelessWidget {
             controller: controller,
             seconds: 30,
             build: (_, double time) => Text(
-                  time.toString(),
+                  time.toInt().toString(),
                   style: const TextStyle(
-                    fontSize: 100,
-                    fontFamily: font,
-                    color: kOrange,
-                  ),
+                      fontSize: 100,
+                      fontFamily: font,
+                      color: kOrange,
+                      fontWeight: FontWeight.w900),
                 ),
-            interval: const Duration(milliseconds: 100),
+            interval: const Duration(seconds: 1),
             onFinished: () {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  duration: Duration(milliseconds: 200),
+                  duration: Duration(milliseconds: 500),
                   content: Center(
                       child: Text(
                     'وقتك خلص يسطا😩',
@@ -248,18 +252,8 @@ class QuizQuestion extends StatelessWidget {
                   )),
                 ),
               );
-              onNextQuestion();
+              //onNextQuestion();
             }),
-        ElevatedButton(
-            onPressed: () {
-              controller.start();
-              onNextQuestion();
-            },
-            child: const Text(
-              "اللي بعده",
-              style: TextStyle(
-                  fontFamily: font, fontWeight: FontWeight.w700, fontSize: 24),
-            ))
       ]),
     );
   }

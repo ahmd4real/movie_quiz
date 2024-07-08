@@ -26,7 +26,8 @@ class CustomButton extends StatelessWidget {
                   style: ButtonStyle(
                     elevation: WidgetStateProperty.all(0),
                     backgroundColor: WidgetStateProperty.all<Color>(
-                      color,)
+                      color,
+                     )
                   ),
                     onPressed: onTap,
                     child:  Text(
@@ -34,11 +35,11 @@ class CustomButton extends StatelessWidget {
                       style: const TextStyle(
                         color: kWhite,
                           fontFamily: font,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w600,
                           fontSize: 32),
                     )),
               );
             
-;
+
   }
 }
