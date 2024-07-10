@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:movie_quiz/constants.dart';
+import 'package:movie_quiz/utilities.dart';
 import 'package:movie_quiz/view/screens/home_page.dart';
 import 'package:movie_quiz/view/screens/quiz_page.dart';
 import 'package:movie_quiz/view/screens/teams_name.dart';
@@ -17,14 +19,15 @@ class ResultsPage extends StatelessWidget {
       body: AnimationLimiter(
         child: Column(
           children: [
-            //SizedBox(height: MediaQuery.of(context).size.height * 0.45),
-            SizedBox(height: 48,),
+            const SizedBox(
+              height: 48,
+            ),
             Expanded(
               child: ListView.builder(
                 padding: EdgeInsets.all(w / 30),
                 physics: const BouncingScrollPhysics(
                     parent: AlwaysScrollableScrollPhysics()),
-                itemCount: NumebrOfTeams,
+                itemCount: numberOfTeams,
                 itemBuilder: (BuildContext c, int i) {
                   return AnimationConfiguration.staggeredList(
                     position: i,
@@ -44,7 +47,6 @@ class ResultsPage extends StatelessWidget {
                           height: w / 4.5,
                           decoration: BoxDecoration(
                             border: Border.all(color: kYellow2),
-                            //color: kMoveLight,
                             borderRadius: const BorderRadius.all(
                               Radius.circular(20),
                             ),
@@ -68,7 +70,8 @@ class ResultsPage extends StatelessWidget {
                               trailing: Text(
                                 '${score[i]} / 10',
                                 style: const TextStyle(
-                                    fontFamily: teamFont, color: kYellow2,
+                                    fontFamily: teamFont,
+                                    color: kYellow2,
                                     fontSize: 32),
                               ),
                             ),
@@ -80,17 +83,63 @@ class ResultsPage extends StatelessWidget {
                 },
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 32.0),
-              child: CustomButton(
-                
-                              color: Color.fromARGB(255, 104, 82, 184),
-                              text: "طب ما تلعب تاني يأخي",
-                              onTap: () {
-                                Navigator.pushReplacementNamed(
-                                    context, HomePage.id);
-                              }),
-            ),
+
+             Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: kGreen2, width: 2),
+                  shape: BoxShape.circle,
+                ),
+                child: Material(
+                  shape: const CircleBorder(),
+                  child: InkWell(
+                    splashColor: Colors.black,
+                    onTap: () {
+                      resetValues();
+                      Navigator.pushNamed(context, HomePage.id);
+                    },
+                    customBorder: const CircleBorder(),
+                    child: Ink(
+                      decoration: const BoxDecoration(shape: BoxShape.circle),
+                      child: CircleAvatar(
+                        backgroundColor: kYellow2,
+                        backgroundImage: const AssetImage(buttonImg),
+                        radius: MediaQuery.of(context).size.width * 0.18,
+                      ),
+                    ),
+                  ),
+                ),
+              ),),
+            //Padding(
+              
+              // padding: const EdgeInsets.all(8.0),
+              // child: Container(
+              //   decoration: BoxDecoration(
+              //     border: Border.all(color: kGreen2, width: 2),
+              //     shape: BoxShape.circle,
+              //   ),
+              //   child: Material(
+              //     shape: const CircleBorder(),
+              //     child: InkWell(
+              //       splashColor: Colors.black,
+              //       onTap: () {
+              //         resetValues();
+              //         Navigator.pushNamed(context, HomePage.id);
+              //       },
+              //       customBorder: const CircleBorder(),
+              //       child: Ink(
+              //         decoration: const BoxDecoration(shape: BoxShape.circle),
+              //         child: CircleAvatar(
+              //           backgroundColor: kYellow2,
+              //           backgroundImage: const AssetImage(buttonImg),
+              //           radius: MediaQuery.of(context).size.width * 0.18,
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+            //),
           ],
         ),
       ),

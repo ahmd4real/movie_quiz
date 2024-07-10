@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
-import 'package:movie_quiz/view/screens/results_page.dart';
 import 'package:movie_quiz/view/screens/teams_name.dart';
 import 'package:movie_quiz/view/widgets/custom_button.dart';
 import 'package:movie_quiz/view/widgets/custom_text_field.dart';
 
-int NumebrOfTeams = 0;
+int numberOfTeams = 0;
 
 class HomePage extends StatelessWidget {
    HomePage({super.key});
@@ -24,10 +23,10 @@ class HomePage extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 32.0),
-            child: Container(
+            child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.3,
               width: double.infinity,
-              child: Image.asset('assets/images/header.png'),
+              child: Image.asset(header),
             ),
           ),
           Padding(
@@ -41,7 +40,7 @@ class HomePage extends StatelessWidget {
             children: [
     
               CustomButton(color: kMove, text: "اللي بعده", onTap: () {
-                NumebrOfTeams = int.parse(controller.text);
+                numberOfTeams = int.parse(controller.text);
                      Navigator.pushReplacementNamed(context, TeamsNamePage.id);
               })
              

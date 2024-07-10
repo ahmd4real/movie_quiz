@@ -22,7 +22,7 @@ class _TeamsNamePageState extends State<TeamsNamePage> {
   @override
   void initState() {
     super.initState();
-    for (i = 0; i < NumebrOfTeams; i++) {
+    for (i = 0; i < numberOfTeams; i++) {
       controllers.add(TextEditingController());
     }
   }
@@ -55,13 +55,13 @@ class _TeamsNamePageState extends State<TeamsNamePage> {
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 32.0),
-            child: Container(
+            child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.3,
               width: double.infinity,
               child: Image.asset('assets/images/header.png'),
             ),
           ),
-          for (i = 0; i < NumebrOfTeams; i++)
+          for (i = 0; i < numberOfTeams; i++)
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32),

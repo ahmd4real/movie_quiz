@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
-import 'package:movie_quiz/view/screens/home_page.dart';
-import 'package:movie_quiz/view/screens/teams_name.dart';
 
 class CustomButton extends StatelessWidget {
  
