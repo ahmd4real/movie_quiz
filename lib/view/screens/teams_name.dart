@@ -5,12 +5,13 @@ import 'package:movie_quiz/view/screens/quiz_page.dart';
 import 'package:movie_quiz/view/widgets/custom_button.dart';
 import 'package:movie_quiz/view/widgets/custom_text_field.dart';
 
-int i = 0;
-List<String> teamNames = [];
+
 
 class TeamsNamePage extends StatefulWidget {
-  const TeamsNamePage({super.key});
+  TeamsNamePage({super.key, required this.numberOfTeams});
   static const String id = "teams_name_page";
+  
+  final int numberOfTeams;
 
   @override
   State<TeamsNamePage> createState() => _TeamsNamePageState();
@@ -22,7 +23,7 @@ class _TeamsNamePageState extends State<TeamsNamePage> {
   @override
   void initState() {
     super.initState();
-    for (i = 0; i < numberOfTeams; i++) {
+    for (int i = 0; i < widget.numberOfTeams; i++) {
       controllers.add(TextEditingController());
     }
   }
@@ -36,10 +37,13 @@ class _TeamsNamePageState extends State<TeamsNamePage> {
   }
 
   void saveTeamNames() {
-    teamNames.clear();
+    List<String> teamNames = [];
     for (var controller in controllers) {
       teamNames.add(controller.text);
     }
+    // Pass teamNames to the next screen or use them as needed
+    Navigator.pushReplacement(context, 
+                  MaterialPageRoute(builder: (context) =>  QuizPage(teamNames: teamNames,)));
   }
 
   @override
@@ -61,10 +65,9 @@ class _TeamsNamePageState extends State<TeamsNamePage> {
               child: Image.asset('assets/images/header.png'),
             ),
           ),
-          for (i = 0; i < numberOfTeams; i++)
+          for (int i = 0; i < widget.numberOfTeams; i++)
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32),
+              padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32),
               child: CustomTextField(
                 labelText: "فريق ${i + 1}",
                 controller: controllers[i],
@@ -78,7 +81,8 @@ class _TeamsNamePageState extends State<TeamsNamePage> {
                 text: "اللي بعده",
                 onTap: () {
                   saveTeamNames();
-                  Navigator.pushReplacementNamed(context, QuizPage.id);
+                  
+                  
                 },
               )
             ],

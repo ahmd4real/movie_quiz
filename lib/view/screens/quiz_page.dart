@@ -1,48 +1,42 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/models/data_file.dart';
-import 'package:movie_quiz/view/screens/home_page.dart';
 import 'package:movie_quiz/view/screens/results_page.dart';
-import 'package:movie_quiz/view/screens/teams_name.dart';
 import 'package:movie_quiz/view/widgets/custom_button.dart';
 import 'package:movie_quiz/view/widgets/custom_image_button.dart';
 import 'package:timer_count_down/timer_controller.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 
-int teamIndex = 0;
-List<int> teamQuestionCount = List.filled(numberOfTeams, 0);
-List<int> score = List.filled(numberOfTeams, 0);
-List<int> questionOrder = List.generate(data.length,
-    (index) => index); // Generate a list of indices for the questions
-int currentQuestion = Random().nextInt(data.length);
-bool answerState = false;
-int? _selectedAnswerIndex;
-bool? _isCorrect;
-final CountdownController controller = CountdownController(autoStart: true);
-bool quizStarted = false;
-int totalQuestionsAsked = 0;
-
 class QuizPage extends StatefulWidget {
-  const QuizPage({super.key});
+  const QuizPage({super.key, required this.teamNames});
   static const String id = "quiz_page";
+  final List<String> teamNames;
 
   @override
   State<QuizPage> createState() => _QuizPageState();
 }
 
 class _QuizPageState extends State<QuizPage> {
-  // bool answerState = false;
-  // int? _selectedAnswerIndex;
-  // bool? _isCorrect;
-  // final CountdownController controller = CountdownController(autoStart: true);
-  // bool quizStarted = false;
-  // int totalQuestionsAsked = 0;
+  int teamIndex = 0;
+  List<int> teamQuestionCount = [];
+  List<int> score = [];
+  List<int> questionOrder = [];
+  int currentQuestion = 0;
+  bool answerState = false;
+  int? _selectedAnswerIndex;
+  bool? _isCorrect;
+  final CountdownController controller = CountdownController(autoStart: true);
+  bool quizStarted = false;
+  int totalQuestionsAsked = 0;
 
   @override
   void initState() {
     super.initState();
-    questionOrder.shuffle(); // Shuffle the question order at the start
+    teamQuestionCount = List.filled(widget.teamNames.length, 0);
+    score = List.filled(widget.teamNames.length, 0);
+    questionOrder = List.generate(data.length, (index) => index);
+    questionOrder.shuffle();
+    currentQuestion = questionOrder[0];
   }
 
   void nextQuestion() {
@@ -53,12 +47,12 @@ class _QuizPageState extends State<QuizPage> {
       teamQuestionCount[teamIndex]++;
       totalQuestionsAsked++;
 
-      if (totalQuestionsAsked >= numberOfTeams * 10) {
+      if (totalQuestionsAsked >= widget.teamNames.length * 10) {
         currentQuestion = -1;
       } else {
-        teamIndex = (teamIndex + 1) % teamNames.length;
-        currentQuestion = questionOrder[totalQuestionsAsked %
-            questionOrder.length]; // Get the next question in order
+        teamIndex = (teamIndex + 1) % widget.teamNames.length;
+        currentQuestion =
+            questionOrder[totalQuestionsAsked % questionOrder.length];
         controller.restart();
       }
     });
@@ -74,45 +68,11 @@ class _QuizPageState extends State<QuizPage> {
         answerState = true;
       });
 
-      Future.delayed(const Duration(milliseconds: 300), () {
+      Future.delayed(const Duration(milliseconds: 500), () {
         nextQuestion();
       });
     }
   }
-
-  // void nextQuestion() {
-  //   setState(() {
-  //     answerState = false;
-  //     _selectedAnswerIndex = null;
-  //     _isCorrect = null;
-  //     teamQuestionCount[teamIndex]++;
-  //     totalQuestionsAsked++;
-
-  //     if (totalQuestionsAsked >= numberOfTeams * 10) {
-  //       currentQuestion = -1;
-  //     } else {
-  //       teamIndex = (teamIndex + 1) % teamNames.length;
-  //       currentQuestion = questionOrder[totalQuestionsAsked % questionOrder.length]; // Get the next question in order
-  //       controller.restart();
-  //     }
-  //   });
-  // }
-
-  // void _selectAnswer(int index) {
-  //   if (!answerState) {
-  //     bool isCorrect = index == data[currentQuestion].answerIndex;
-  //     setState(() {
-  //       score[teamIndex] += isCorrect ? 1 : 0;
-  //       _selectedAnswerIndex = index;
-  //       _isCorrect = isCorrect;
-  //       answerState = true;
-  //     });
-
-  //     Future.delayed(const Duration(milliseconds: 300), () {
-  //       nextQuestion();
-  //     });
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -125,12 +85,14 @@ class _QuizPageState extends State<QuizPage> {
         child: quizStarted
             ? currentQuestion != -1
                 ? QuizQuestion(
+                    teamIndex: teamIndex,
                     question: data[currentQuestion],
                     selectedAnswerIndex: _selectedAnswerIndex,
                     isCorrect: _isCorrect,
                     onAnswerSelected: _selectAnswer,
                     controller: controller,
                     onNextQuestion: nextQuestion,
+                    teamNames: widget.teamNames,
                   )
                 : Center(
                     child: Column(
@@ -140,8 +102,13 @@ class _QuizPageState extends State<QuizPage> {
                             color: kMove,
                             text: "مين اللي كسب",
                             onTap: () {
-                              Navigator.pushReplacementNamed(
-                                  context, ResultsPage.id);
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ResultsPage(
+                                            teamNames: widget.teamNames,
+                                            score: score,
+                                          )));
                             }),
                       ],
                     ),
@@ -157,7 +124,7 @@ class _QuizPageState extends State<QuizPage> {
                 img: buttonImg2,
                 color: kYellow2,
                 radiusRatio: .30,
-                shadowColor:const Color.fromARGB(255, 255, 146, 3)
+                shadowColor: const Color.fromARGB(255, 255, 146, 3),
               )),
       ),
     );
@@ -171,6 +138,8 @@ class QuizQuestion extends StatelessWidget {
   final bool? isCorrect;
   final Function(int) onAnswerSelected;
   final VoidCallback onNextQuestion;
+  final List<String> teamNames;
+  final int teamIndex;
 
   const QuizQuestion({
     super.key,
@@ -180,6 +149,8 @@ class QuizQuestion extends StatelessWidget {
     required this.onAnswerSelected,
     required this.controller,
     required this.onNextQuestion,
+    required this.teamNames,
+    required this.teamIndex,
   });
 
   @override
@@ -191,9 +162,7 @@ class QuizQuestion extends StatelessWidget {
                 color: kYellow2, fontFamily: teamFont, fontSize: 48)),
         const SizedBox(height: 8),
         Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 8.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: SizedBox(
             height: MediaQuery.of(context).size.height * 0.3,
             child: Center(
@@ -225,15 +194,18 @@ class QuizQuestion extends StatelessWidget {
           }
 
           return Container(
-            
-            margin: const EdgeInsets.symmetric(
-              vertical: 7.0,
-            ),
+            margin: const EdgeInsets.symmetric(vertical: 7.0),
             width: MediaQuery.of(context).size.width / 1.5,
             decoration: BoxDecoration(
-             gradient: const LinearGradient(colors: [
-              kYellow2,Color.fromARGB(255, 255, 210, 8)
-             ]),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black,
+                  blurRadius: 10,
+                  spreadRadius: 0.01,
+                ),
+              ],
+              gradient: const LinearGradient(
+                  colors: [kYellow2, Color.fromARGB(255, 255, 210, 8)]),
               color: kYellow2,
               border: Border.all(color: kYellow2, width: 1.2),
               borderRadius: BorderRadius.circular(24.0),
@@ -244,8 +216,8 @@ class QuizQuestion extends StatelessWidget {
                 selectedAnswerIndex == null ? onAnswerSelected(idx) : null;
               },
               style: ButtonStyle(
-                elevation: WidgetStateProperty.all(2),
-                overlayColor: WidgetStateProperty.all(Colors.black),
+                elevation: WidgetStateProperty.all(3),
+                overlayColor: WidgetStateProperty.all(Colors.black.withOpacity(0.5)),
                 shadowColor: WidgetStateProperty.all(Colors.black),
                 backgroundColor: WidgetStateProperty.resolveWith<Color>(
                   (Set<WidgetState> states) {
@@ -273,9 +245,7 @@ class QuizQuestion extends StatelessWidget {
             ),
           );
         }),
-        const SizedBox(
-          height: 32,
-        ),
+        const SizedBox(height: 32),
         Countdown(
             controller: controller,
             seconds: 30,

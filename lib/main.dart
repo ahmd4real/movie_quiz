@@ -33,9 +33,9 @@ class MovieQuiz extends StatelessWidget {
       locale: const Locale('ar'),
       routes: {
         HomePage.id:(context)=>  HomePage(),
-        TeamsNamePage.id:(context)=> const TeamsNamePage(),
-        QuizPage.id:(context)=> const QuizPage(),
-        ResultsPage.id:(context)=> const ResultsPage(),
+        // TeamsNamePage.id:(context)=>  TeamsNamePage(),
+       // QuizPage.id:(context)=>  QuizPage(),
+       // ResultsPage.id:(context)=> const ResultsPage(),
       },
       initialRoute: HomePage.id,
     );

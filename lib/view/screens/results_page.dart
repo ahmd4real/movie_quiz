@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:movie_quiz/constants.dart';
-import 'package:movie_quiz/utilities.dart';
+
 import 'package:movie_quiz/view/screens/home_page.dart';
-import 'package:movie_quiz/view/screens/quiz_page.dart';
-import 'package:movie_quiz/view/screens/teams_name.dart';
-import 'package:movie_quiz/view/widgets/custom_button.dart';
+
+import 'package:movie_quiz/view/widgets/custom_image_button.dart';
 
 class ResultsPage extends StatelessWidget {
-  const ResultsPage({super.key});
+  const ResultsPage({super.key, required this.teamNames, required this.score});
   static const String id = "results_page";
+  final List<String> teamNames;
+  final List<int> score;
+
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -27,7 +29,7 @@ class ResultsPage extends StatelessWidget {
                 padding: EdgeInsets.all(w / 30),
                 physics: const BouncingScrollPhysics(
                     parent: AlwaysScrollableScrollPhysics()),
-                itemCount: numberOfTeams,
+                itemCount: teamNames.length,
                 itemBuilder: (BuildContext c, int i) {
                   return AnimationConfiguration.staggeredList(
                     position: i,
@@ -83,63 +85,20 @@ class ResultsPage extends StatelessWidget {
                 },
               ),
             ),
-
-             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: kGreen2, width: 2),
-                  shape: BoxShape.circle,
-                ),
-                child: Material(
-                  shape: const CircleBorder(),
-                  child: InkWell(
-                    splashColor: Colors.black,
-                    onTap: () {
-                      resetValues();
-                      Navigator.pushNamed(context, HomePage.id);
-                    },
-                    customBorder: const CircleBorder(),
-                    child: Ink(
-                      decoration: const BoxDecoration(shape: BoxShape.circle),
-                      child: CircleAvatar(
-                        backgroundColor: kYellow2,
-                        backgroundImage: const AssetImage(buttonImg),
-                        radius: MediaQuery.of(context).size.width * 0.18,
-                      ),
-                    ),
-                  ),
-                ),
-              ),),
-            //Padding(
-              
-              // padding: const EdgeInsets.all(8.0),
-              // child: Container(
-              //   decoration: BoxDecoration(
-              //     border: Border.all(color: kGreen2, width: 2),
-              //     shape: BoxShape.circle,
-              //   ),
-              //   child: Material(
-              //     shape: const CircleBorder(),
-              //     child: InkWell(
-              //       splashColor: Colors.black,
-              //       onTap: () {
-              //         resetValues();
-              //         Navigator.pushNamed(context, HomePage.id);
-              //       },
-              //       customBorder: const CircleBorder(),
-              //       child: Ink(
-              //         decoration: const BoxDecoration(shape: BoxShape.circle),
-              //         child: CircleAvatar(
-              //           backgroundColor: kYellow2,
-              //           backgroundImage: const AssetImage(buttonImg),
-              //           radius: MediaQuery.of(context).size.width * 0.18,
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
-            //),
+            Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CustomImageButton(
+                  img: buttonImg,
+                  color: kYellow2,
+                  radiusRatio: .2,
+                  ontap: () {
+                    Navigator.pushReplacementNamed(
+                        context,
+                        HomePage.id);
+                  },
+                  shadowColor: Colors.black87,
+                  borderColor:const Color.fromARGB(255, 0, 0, 0),
+                )),
           ],
         ),
       ),

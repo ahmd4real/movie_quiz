@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
-import 'package:movie_quiz/utilities.dart';
+
 import 'package:movie_quiz/view/screens/home_page.dart';
 
 class CustomImageButton extends StatelessWidget {
-  CustomImageButton(
+   CustomImageButton(
       {super.key,
       this.ontap,
       required this.img,

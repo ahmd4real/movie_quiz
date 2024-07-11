@@ -4,12 +4,12 @@ import 'package:movie_quiz/view/screens/teams_name.dart';
 import 'package:movie_quiz/view/widgets/custom_button.dart';
 import 'package:movie_quiz/view/widgets/custom_text_field.dart';
 
-int numberOfTeams = 0;
-
 class HomePage extends StatelessWidget {
-   HomePage({super.key});
+  HomePage({super.key});
   static const String id = "home_page";
   TextEditingController controller = TextEditingController();
+  int numberOfTeams = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: kBackgroundColor,
         centerTitle: true,
-        title: const Text(appTitle,style: TextStyle(fontFamily:  teamFont,color: kYellow2)),
+        title: const Text(appTitle, style: TextStyle(fontFamily: teamFont, color: kYellow2)),
       ),
       body: ListView(
         children: [
@@ -30,21 +30,24 @@ class HomePage extends StatelessWidget {
             ),
           ),
           Padding(
-              padding: const EdgeInsets.all(32.0),
-              child: CustomTextField(
-                keyboardType: TextInputType.number,
-                labelText: 'هتلعبوا كام تيم ؟!', controller: controller,
-              )),
+            padding: const EdgeInsets.all(32.0),
+            child: CustomTextField(
+              keyboardType: TextInputType.number,
+              labelText: 'هتلعبوا كام تيم ؟!', controller: controller,
+            )
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-    
               CustomButton(color: kMove, text: "اللي بعده", onTap: () {
                 numberOfTeams = int.parse(controller.text);
-                     Navigator.pushReplacementNamed(context, TeamsNamePage.id);
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TeamsNamePage(numberOfTeams: numberOfTeams),
+                  ),
+                );
               })
-             
-            
             ],
           )
         ],
