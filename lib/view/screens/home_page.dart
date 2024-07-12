@@ -14,20 +14,21 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBackgroundColor,
-      appBar: AppBar(
-        backgroundColor: kBackgroundColor,
-        centerTitle: true,
-        title: const Text(appTitle, style: TextStyle(fontFamily: font, color: kYellow2)),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: kBackgroundColor,
+      //   centerTitle: true,
+      //   title: const Text(appTitle, style: TextStyle(fontFamily: font, color: kYellow2)),
+      // ),
       body: ListView(
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 32.0),
             child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.3,
+              height: MediaQuery.of(context).size.height * 0.4,
               width: double.infinity,
-              child: const CircleAvatar(backgroundImage: AssetImage(header),
-              backgroundColor: kYellow2,),
+              child: Image.asset(logoWhite),
+              // child: const CircleAvatar(backgroundImage: AssetImage(logoWhite),
+              // backgroundColor: kYellow2,),
             ),
             
             

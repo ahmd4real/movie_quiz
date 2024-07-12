@@ -30,3 +30,7 @@ const String appTitle = 'ف فيلم ايه؟';
 const String header = 'assets/images/header.png';
 const String buttonImg = 'assets/images/buttonImg.png';
 const String buttonImg2='assets/images/buttonImg2.png';
+const String logo='assets/images/logo.png';
+const String logoWhite='assets/images/logo_white.png';
+const String icon='assets/images/icon.png';
+

@@ -50,19 +50,15 @@ class _TeamsNamePageState extends State<TeamsNamePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBackgroundColor,
-      appBar: AppBar(
-        backgroundColor: kBackgroundColor,
-        centerTitle: true,
-        title: const Text("Movie Quiz"),
-      ),
+      
       body: ListView(
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 32.0),
             child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.3,
+              height: MediaQuery.of(context).size.height * 0.5,
               width: double.infinity,
-              child: Image.asset('assets/images/header.png'),
+              child: Image.asset(logoWhite),
             ),
           ),
           for (int i = 0; i < widget.numberOfTeams; i++)
@@ -81,8 +77,6 @@ class _TeamsNamePageState extends State<TeamsNamePage> {
                 text: "اللي بعده",
                 onTap: () {
                   saveTeamNames();
-                  
-                  
                 },
               )
             ],
