@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/models/data_file.dart';
 import 'package:movie_quiz/view/screens/results_page.dart';
@@ -6,6 +7,7 @@ import 'package:movie_quiz/view/widgets/custom_button.dart';
 import 'package:movie_quiz/view/widgets/custom_image_button.dart';
 import 'package:timer_count_down/timer_controller.dart';
 import 'package:timer_count_down/timer_count_down.dart';
+import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 
 class QuizPage extends StatefulWidget {
   const QuizPage({super.key, required this.teamNames});
@@ -77,6 +79,11 @@ class _QuizPageState extends State<QuizPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: kBackgroundColor,
+        title: SizedBox(width: 64, height: 64, child: Image.asset(logo)),
+        centerTitle: true,
+      ),
       backgroundColor: kBackgroundColor,
       body: Container(
         decoration: const BoxDecoration(
@@ -99,7 +106,7 @@ class _QuizPageState extends State<QuizPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomButton(
-                            color: Color.fromARGB(255, 132, 179, 187),
+                            color: const Color.fromARGB(255, 132, 179, 187),
                             text: "مين اللي كسب",
                             onTap: () {
                               Navigator.pushReplacement(
@@ -114,18 +121,25 @@ class _QuizPageState extends State<QuizPage> {
                     ),
                   )
             : Center(
-                child: CustomImageButton(
-                ontap: () {
-                  setState(() {
-                    quizStarted = true;
-                    controller.start();
-                  });
-                },
-                img: buttonImg2,
-                color: kYellow2,
-                radiusRatio: .30,
-                shadowColor: const Color.fromARGB(255, 255, 146, 3),
-              )),
+                child: Countdown(
+                    controller: controller,
+                    seconds: 3,
+                    build: (_, double time) => TextAnimator(
+                          time.toInt().toString(),
+                          atRestEffect: WidgetRestingEffects.pulse(),
+                          style: const TextStyle(
+                              fontSize: 150,
+                              fontFamily: font,
+                              color: kYellow2,
+                              fontWeight: FontWeight.w900),
+                        ),
+                    interval: const Duration(seconds: 1),
+                    onFinished: () {
+                      setState(() {
+                        quizStarted = true;
+                      });
+                    }),
+              ),
       ),
     );
   }
@@ -217,7 +231,8 @@ class QuizQuestion extends StatelessWidget {
               },
               style: ButtonStyle(
                 elevation: WidgetStateProperty.all(3),
-                overlayColor: WidgetStateProperty.all(Colors.black.withOpacity(0.5)),
+                overlayColor:
+                    WidgetStateProperty.all(Colors.black.withOpacity(0.5)),
                 shadowColor: WidgetStateProperty.all(Colors.black),
                 backgroundColor: WidgetStateProperty.resolveWith<Color>(
                   (Set<WidgetState> states) {
@@ -254,7 +269,7 @@ class QuizQuestion extends StatelessWidget {
                   style: const TextStyle(
                       fontSize: 100,
                       fontFamily: font,
-                      color: kOrange,
+                      color: kYellow2,
                       fontWeight: FontWeight.w900),
                 ),
             interval: const Duration(seconds: 1),
