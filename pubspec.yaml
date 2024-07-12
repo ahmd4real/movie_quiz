@@ -76,14 +76,12 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Blaka 
+    - family: Marhey 
       fonts:
-        - asset: assets/fonts/Blaka-Regular.ttf
+        - asset: assets/fonts/Marhey-VariableFont_wght.ttf
     #       - asset: fonts/Schyler-Italic.ttf
     #         style: italic
-    - family: Beiruti
-      fonts:
-        - asset: assets/fonts/Beiruti-VariableFont_wght.ttf
+    
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #

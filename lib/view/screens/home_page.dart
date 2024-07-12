@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: kBackgroundColor,
         centerTitle: true,
-        title: const Text(appTitle, style: TextStyle(fontFamily: teamFont, color: kYellow2)),
+        title: const Text(appTitle, style: TextStyle(fontFamily: font, color: kYellow2)),
       ),
       body: ListView(
         children: [
@@ -26,13 +26,17 @@ class HomePage extends StatelessWidget {
             child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.3,
               width: double.infinity,
-              child: Image.asset(header),
+              child: const CircleAvatar(backgroundImage: AssetImage(header),
+              backgroundColor: kYellow2,),
             ),
+            
+            
           ),
           Padding(
             padding: const EdgeInsets.all(32.0),
             child: CustomTextField(
               keyboardType: TextInputType.number,
+              
               labelText: 'هتلعبوا كام تيم ؟!', controller: controller,
             )
           ),

@@ -22,7 +22,7 @@ const Color kMoveLight = Color(0xffa080fe);
 const Color kGreen2=Color.fromARGB(255, 88, 153, 34);
 
 //fonts
-const String font = 'Beiruti';
+const String font = 'Marhey';
 const String teamFont = 'Blaka';
 
 //const Strings

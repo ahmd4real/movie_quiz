@@ -65,14 +65,14 @@ class ResultsPage extends StatelessWidget {
                               title: Text(
                                 teamNames[i],
                                 style: const TextStyle(
-                                    fontFamily: teamFont,
+                                    fontFamily: font,
                                     color: kYellow2,
                                     fontSize: 32),
                               ),
                               trailing: Text(
                                 '${score[i]} / 10',
                                 style: const TextStyle(
-                                    fontFamily: teamFont,
+                                    fontFamily: font,
                                     color: kYellow2,
                                     fontSize: 32),
                               ),

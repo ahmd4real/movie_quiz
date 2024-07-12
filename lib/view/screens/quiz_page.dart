@@ -99,7 +99,7 @@ class _QuizPageState extends State<QuizPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomButton(
-                            color: kMove,
+                            color: Color.fromARGB(255, 132, 179, 187),
                             text: "مين اللي كسب",
                             onTap: () {
                               Navigator.pushReplacement(
@@ -159,7 +159,7 @@ class QuizQuestion extends StatelessWidget {
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Text(teamNames[teamIndex],
             style: const TextStyle(
-                color: kYellow2, fontFamily: teamFont, fontSize: 48)),
+                color: kYellow2, fontFamily: font, fontSize: 48)),
         const SizedBox(height: 8),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
