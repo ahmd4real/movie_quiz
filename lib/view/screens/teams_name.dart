@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
-import 'package:movie_quiz/view/screens/home_page.dart';
 import 'package:movie_quiz/view/screens/quiz_page.dart';
 import 'package:movie_quiz/view/widgets/custom_button.dart';
+import 'package:movie_quiz/view/widgets/custom_button_old.dart';
 import 'package:movie_quiz/view/widgets/custom_text_field.dart';
 
-
-
 class TeamsNamePage extends StatefulWidget {
-  TeamsNamePage({super.key, required this.numberOfTeams});
+  const TeamsNamePage({super.key, required this.numberOfTeams});
   static const String id = "teams_name_page";
-  
+
   final int numberOfTeams;
 
   @override
@@ -41,29 +39,33 @@ class _TeamsNamePageState extends State<TeamsNamePage> {
     for (var controller in controllers) {
       teamNames.add(controller.text);
     }
-    // Pass teamNames to the next screen or use them as needed
-    Navigator.pushReplacement(context, 
-                  MaterialPageRoute(builder: (context) =>  QuizPage(teamNames: teamNames,)));
+    
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => QuizPage(
+                  teamNames: teamNames,
+                )));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBackgroundColor,
-      
       body: ListView(
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 32.0),
             child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.5,
+              height: MediaQuery.of(context).size.height * 0.4,
               width: double.infinity,
               child: Image.asset(logoWhite),
             ),
           ),
           for (int i = 0; i < widget.numberOfTeams; i++)
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32),
               child: CustomTextField(
                 labelText: "فريق ${i + 1}",
                 controller: controllers[i],
@@ -73,7 +75,9 @@ class _TeamsNamePageState extends State<TeamsNamePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomButton(
-                color: kMove,
+buttonWidth: 0.83,
+
+                //color: kQuiestionColor,
                 text: "اللي بعده",
                 onTap: () {
                   saveTeamNames();

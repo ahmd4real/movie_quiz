@@ -4,6 +4,7 @@ import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/models/data_file.dart';
 import 'package:movie_quiz/view/screens/results_page.dart';
 import 'package:movie_quiz/view/widgets/custom_button.dart';
+import 'package:movie_quiz/view/widgets/custom_button_old.dart';
 import 'package:movie_quiz/view/widgets/custom_image_button.dart';
 import 'package:timer_count_down/timer_controller.dart';
 import 'package:timer_count_down/timer_count_down.dart';
@@ -106,7 +107,8 @@ class _QuizPageState extends State<QuizPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomButton(
-                            color: const Color.fromARGB(255, 132, 179, 187),
+                          buttonWidth: 0.83,
+                           // color: const Color.fromARGB(255, 132, 179, 187),
                             text: "مين اللي كسب",
                             onTap: () {
                               Navigator.pushReplacement(
@@ -125,10 +127,12 @@ class _QuizPageState extends State<QuizPage> {
                     controller: controller,
                     seconds: 3,
                     build: (_, double time) => TextAnimator(
-                          time.toInt().toString(),
+                          time==0?
+                          'يلا بينا':
+                           time.toInt().toString(),
                           atRestEffect: WidgetRestingEffects.pulse(),
-                          style: const TextStyle(
-                              fontSize: 150,
+                          style:  TextStyle(
+                              fontSize:time==0?50: 150,
                               fontFamily: font,
                               color: kYellow2,
                               fontWeight: FontWeight.w900),
@@ -173,6 +177,7 @@ class QuizQuestion extends StatelessWidget {
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Text(teamNames[teamIndex],
             style: const TextStyle(
+              fontWeight: FontWeight.w700,
                 color: kYellow2, fontFamily: font, fontSize: 48)),
         const SizedBox(height: 8),
         Padding(
@@ -186,7 +191,7 @@ class QuizQuestion extends StatelessWidget {
                   style: const TextStyle(
                       fontSize: 24.0,
                       color: Colors.white,
-                      fontWeight: FontWeight.w700,
+                     fontWeight: FontWeight.w500,
                       fontFamily: font)),
             ),
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/view/screens/teams_name.dart';
 import 'package:movie_quiz/view/widgets/custom_button.dart';
+import 'package:movie_quiz/view/widgets/custom_button_old.dart';
 import 'package:movie_quiz/view/widgets/custom_text_field.dart';
 
 class HomePage extends StatelessWidget {
@@ -14,11 +15,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBackgroundColor,
-      // appBar: AppBar(
-      //   backgroundColor: kBackgroundColor,
-      //   centerTitle: true,
-      //   title: const Text(appTitle, style: TextStyle(fontFamily: font, color: kYellow2)),
-      // ),
+      
       body: ListView(
         children: [
           Padding(
@@ -27,8 +24,7 @@ class HomePage extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.4,
               width: double.infinity,
               child: Image.asset(logoWhite),
-              // child: const CircleAvatar(backgroundImage: AssetImage(logoWhite),
-              // backgroundColor: kYellow2,),
+              
             ),
             
             
@@ -44,7 +40,11 @@ class HomePage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CustomButton(color: kMove, text: "اللي بعده", onTap: () {
+              CustomButton(
+                buttonWidth: 0.83
+                //,color: kMove, 
+                ,
+                text: "اللي بعده", onTap: () {
                 numberOfTeams = int.parse(controller.text);
                 Navigator.pushReplacement(
                   context,
