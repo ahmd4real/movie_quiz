@@ -8,9 +8,7 @@ import 'package:movie_quiz/view/widgets/custom_text_field.dart';
 class TeamsNamePage extends StatefulWidget {
   const TeamsNamePage({super.key, required this.numberOfTeams});
   static const String id = "teams_name_page";
-
   final int numberOfTeams;
-
   @override
   State<TeamsNamePage> createState() => _TeamsNamePageState();
 }
@@ -39,7 +37,7 @@ class _TeamsNamePageState extends State<TeamsNamePage> {
     for (var controller in controllers) {
       teamNames.add(controller.text);
     }
-    
+
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -75,9 +73,7 @@ class _TeamsNamePageState extends State<TeamsNamePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomButton(
-buttonWidth: 0.83,
-
-                //color: kQuiestionColor,
+                buttonWidth: 0.83,
                 text: "اللي بعده",
                 onTap: () {
                   saveTeamNames();

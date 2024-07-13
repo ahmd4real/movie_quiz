@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:movie_quiz/constants.dart';
-
 import 'package:movie_quiz/view/screens/home_page.dart';
-
 import 'package:movie_quiz/view/widgets/custom_image_button.dart';
 
 class ResultsPage extends StatelessWidget {
@@ -16,6 +13,14 @@ class ResultsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
+    Map<int, String> scoreMap = {};
+    for (int i = 0; i < teamNames.length; i++) {
+      scoreMap[score[i]] = teamNames[i];
+    }
+    // to sort the map in descending order according to score
+    final sortedMap = scoreMap.entries.toList()
+      ..sort((a, b) => b.key.compareTo(a.key));
+
     return Scaffold(
       backgroundColor: kBackgroundColor,
       body: AnimationLimiter(
@@ -48,13 +53,14 @@ class ResultsPage extends StatelessWidget {
                           margin: EdgeInsets.only(bottom: w / 20),
                           height: w / 4.5,
                           decoration: BoxDecoration(
-                            border: Border.all(color: kYellow2),
+                            color: kQuiestionColor,
+                            border: Border.all(color: kYellow, width: 3),
                             borderRadius: const BorderRadius.all(
                               Radius.circular(20),
                             ),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
+                                color: Colors.black.withOpacity(0.5),
                                 blurRadius: 40,
                                 spreadRadius: 10,
                               ),
@@ -62,19 +68,31 @@ class ResultsPage extends StatelessWidget {
                           ),
                           child: Center(
                             child: ListTile(
-                              title: Text(
-                                teamNames[i],
-                                style: const TextStyle(
-                                    fontFamily: font,
-                                    color: kYellow2,
-                                    fontSize: 32),
+                              title: ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  maxHeight: MediaQuery.of(context).size.height / 4.5,
+                                  maxWidth:
+                                      MediaQuery.of(context).size.width / 3,
+                                ),
+                                child: FittedBox(
+                                  child: Text(
+                                    sortedMap[i].value,
+                                    overflow: TextOverflow.fade,
+                                    style: const TextStyle(
+                                        fontFamily: font,
+                                        color: kYellow,
+                                        fontSize: 32,
+                                        fontWeight: FontWeight.w900),
+                                  ),
+                                ),
                               ),
                               trailing: Text(
-                                '${score[i]} / 10',
+                                '${sortedMap[i].key}/10',
                                 style: const TextStyle(
                                     fontFamily: font,
-                                    color: kYellow2,
-                                    fontSize: 32),
+                                    color: kYellow,
+                                    fontSize: 32,
+                                    fontWeight: FontWeight.w900),
                               ),
                             ),
                           ),
@@ -89,19 +107,17 @@ class ResultsPage extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: CustomImageButton(
                   img: buttonImg,
-                  color: kYellow2,
+                  color: kYellow,
                   radiusRatio: .2,
                   ontap: () {
-                    Navigator.pushReplacementNamed(
-                        context,
-                        HomePage.id);
+                    Navigator.pushReplacementNamed(context, HomePage.id);
                   },
                   shadowColor: Colors.black87,
-                  borderColor:const Color.fromARGB(255, 0, 0, 0),
+                  borderColor: const Color.fromARGB(255, 0, 0, 0),
                 )),
           ],
         ),
       ),
     );
-  }
+  }     
 }

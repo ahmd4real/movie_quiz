@@ -15,7 +15,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBackgroundColor,
-      
       body: ListView(
         children: [
           Padding(
@@ -24,35 +23,31 @@ class HomePage extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.4,
               width: double.infinity,
               child: Image.asset(logoWhite),
-              
             ),
-            
-            
           ),
           Padding(
-            padding: const EdgeInsets.all(32.0),
-            child: CustomTextField(
-              keyboardType: TextInputType.number,
-              
-              labelText: 'هتلعبوا كام تيم ؟!', controller: controller,
-            )
-          ),
+              padding: const EdgeInsets.all(32.0),
+              child: CustomTextField(
+                keyboardType: TextInputType.number,
+                labelText: 'هتلعبوا كام تيم ؟!',
+                controller: controller,
+              )),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomButton(
-                buttonWidth: 0.83
-                //,color: kMove, 
-                ,
-                text: "اللي بعده", onTap: () {
-                numberOfTeams = int.parse(controller.text);
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TeamsNamePage(numberOfTeams: numberOfTeams),
-                  ),
-                );
-              })
+                  buttonWidth: 0.83,
+                  text: "اللي بعده",
+                  onTap: () {
+                    numberOfTeams = int.parse(controller.text);
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            TeamsNamePage(numberOfTeams: numberOfTeams),
+                      ),
+                    );
+                  })
             ],
           )
         ],

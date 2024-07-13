@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
 
 class CustomTextField extends StatelessWidget {
-  CustomTextField({
+  const CustomTextField({
     required this.labelText,
     required this.controller,
     this.keyboardType = TextInputType.text,
@@ -11,12 +11,12 @@ class CustomTextField extends StatelessWidget {
 
   final String labelText;
   final TextEditingController controller;
-  TextInputType keyboardType;
+  final TextInputType keyboardType;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      cursorColor: kYellow2,
+      cursorColor: kYellow,
       style: const TextStyle(color: kWhite,fontFamily: font),
       controller: controller,
       keyboardType: keyboardType,

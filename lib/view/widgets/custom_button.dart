@@ -29,9 +29,9 @@ class CustomButton extends StatelessWidget {
           ),
         ],
         gradient: const LinearGradient(
-            colors: [kYellow2, Color.fromARGB(255, 255, 210, 8)]),
-        color: kYellow2,
-        border: Border.all(color: kYellow2, width: 1.2),
+            colors: [kYellow, Color.fromARGB(255, 255, 210, 8)]),
+        color: kYellow,
+        border: Border.all(color: kYellow, width: 1.2),
         borderRadius: BorderRadius.circular(24.0),
       ),
       child: ElevatedButton(
