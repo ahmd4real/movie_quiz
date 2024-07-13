@@ -52,6 +52,13 @@ android {
             signingConfig = signingConfigs.debug
         }
     }
+    // other configurations
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "ف فيلم ايه-${variant.name}.apk"
+        }
+    }
 }
 dependencies {
     implementation 'com.android.support:multidex:1.0.3'
