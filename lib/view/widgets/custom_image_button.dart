@@ -4,7 +4,7 @@ import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/view/screens/home_page.dart';
 
 class CustomImageButton extends StatelessWidget {
-   CustomImageButton(
+   const CustomImageButton(
       {super.key,
       this.ontap,
       required this.img,
@@ -16,7 +16,7 @@ class CustomImageButton extends StatelessWidget {
   final String img;
   final Color color, borderColor,shadowColor;
   final double radiusRatio;
-  void Function()? ontap;
+  final void Function()? ontap;
 
   @override
   Widget build(BuildContext context) {

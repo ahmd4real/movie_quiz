@@ -14,11 +14,16 @@ class ResultsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     Map<int, String> scoreMap = {};
+
     for (int i = 0; i < teamNames.length; i++) {
+      if (scoreMap.containsKey(score[i])) {
+        score[i]*=(20+i); 
+        //print('score added ${score[i]}, i vale ${i}');
+      }
       scoreMap[score[i]] = teamNames[i];
     }
     // to sort the map in descending order according to score
-    final sortedMap = scoreMap.entries.toList()
+   var sortedMap = scoreMap.entries.toList()
       ..sort((a, b) => b.key.compareTo(a.key));
 
     return Scaffold(
@@ -36,6 +41,7 @@ class ResultsPage extends StatelessWidget {
                     parent: AlwaysScrollableScrollPhysics()),
                 itemCount: teamNames.length,
                 itemBuilder: (BuildContext c, int i) {
+                  print('i value $i');
                   return AnimationConfiguration.staggeredList(
                     position: i,
                     delay: const Duration(milliseconds: 100),
@@ -87,7 +93,12 @@ class ResultsPage extends StatelessWidget {
                                 ),
                               ),
                               trailing: Text(
-                                '${sortedMap[i].key}/10',
+                              
+                                '${sortedMap[i].key<=10?
+                                sortedMap[i].key
+                                :
+                               sortedMap[i].key~/(20+i)
+                                }/10',
                                 style: const TextStyle(
                                     fontFamily: font,
                                     color: kYellow,

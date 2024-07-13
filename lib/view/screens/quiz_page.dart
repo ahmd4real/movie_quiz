@@ -49,7 +49,7 @@ class _QuizPageState extends State<QuizPage> {
       teamQuestionCount[teamIndex]++;
       totalQuestionsAsked++;
 
-      if (totalQuestionsAsked >= widget.teamNames.length * 10) {
+      if (totalQuestionsAsked >= widget.teamNames.length * 2) {
         currentQuestion = -1;
       } else {
         teamIndex = (teamIndex + 1) % widget.teamNames.length;
