@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
 
-import 'package:movie_quiz/view/screens/home_page.dart';
 
 class CustomImageButton extends StatelessWidget {
    const CustomImageButton(

@@ -49,7 +49,8 @@ class _QuizPageState extends State<QuizPage> {
       teamQuestionCount[teamIndex]++;
       totalQuestionsAsked++;
 
-      if (totalQuestionsAsked >= widget.teamNames.length * 2) {
+      //10 is number of questions per team
+      if (totalQuestionsAsked >= widget.teamNames.length * 10) {
         currentQuestion = -1;
       } else {
         teamIndex = (teamIndex + 1) % widget.teamNames.length;
@@ -118,17 +119,11 @@ class _QuizPageState extends State<QuizPage> {
             : Center(
                 child: Countdown(
                     controller: controller,
-                    seconds: 3,
-                    build: (_, double time) => TextAnimator(
-                          time == 0 ? 'يلا بينا' : time.toInt().toString(),
-                          atRestEffect: WidgetRestingEffects.pulse(),
-                          style: TextStyle(
-                              fontSize: time == 0 ? 50 : 150,
-                              fontFamily: font,
-                              color: kYellow,
-                              fontWeight: FontWeight.w900),
-                        ),
-                    interval: const Duration(seconds: 1),
+                    seconds: 1,
+                    build: (_, double time) => WidgetAnimator(
+                        atRestEffect: WidgetRestingEffects.pulse(),
+                        child: Image.asset(logoWhite)),
+                    interval: const Duration(milliseconds: 100),
                     onFinished: () {
                       setState(() {
                         quizStarted = true;
