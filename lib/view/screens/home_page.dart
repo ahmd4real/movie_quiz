@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/view/screens/teams_name.dart';
 import 'package:movie_quiz/view/widgets/custom_button.dart';
-import 'package:movie_quiz/view/widgets/custom_button_old.dart';
+
 import 'package:movie_quiz/view/widgets/custom_text_field.dart';
 
 class HomePage extends StatelessWidget {

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+
 import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/models/data_file.dart';
 import 'package:movie_quiz/view/screens/results_page.dart';
 import 'package:movie_quiz/view/widgets/custom_button.dart';
-import 'package:movie_quiz/view/widgets/custom_button_old.dart';
-import 'package:movie_quiz/view/widgets/custom_image_button.dart';
+
+
 import 'package:timer_count_down/timer_controller.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
