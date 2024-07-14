@@ -108,12 +108,9 @@ class _QuizPageState extends State<QuizPage> {
                             onTap: () {
                               Navigator.pushReplacement(
                                   context,
-                                  PageTransition(ResultsPage(teamNames: widget.teamNames, score: score)));
-                                  // MaterialPageRoute(
-                                  //     builder: (context) => ResultsPage(
-                                  //           teamNames: widget.teamNames,
-                                  //           score: score,
-                                  //         )));
+                                  PageTransition(ResultsPage(
+                                      teamNames: widget.teamNames,
+                                      score: score)));
                             }),
                       ],
                     ),

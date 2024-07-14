@@ -12,7 +12,7 @@ class CustomTextField extends StatelessWidget {
   final String labelText;
   final TextEditingController controller;
   final TextInputType keyboardType;
-
+   //TODO: add validation
   @override
   Widget build(BuildContext context) {
     return TextFormField(
