@@ -3,6 +3,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/view/screens/home_page.dart';
 import 'package:movie_quiz/view/widgets/custom_image_button.dart';
+import 'package:movie_quiz/view/widgets/custom_slide_transition.dart';
 
 class ResultsPage extends StatelessWidget {
   const ResultsPage({super.key, required this.teamNames, required this.score});
@@ -116,7 +117,7 @@ class ResultsPage extends StatelessWidget {
                   color: kYellow,
                   radiusRatio: .2,
                   ontap: () {
-                    Navigator.pushReplacementNamed(context, HomePage.id);
+                    Navigator.pushReplacement(context, PageTransition(HomePage()));
                   },
                   shadowColor: Colors.black87,
                   borderColor: const Color.fromARGB(255, 0, 0, 0),

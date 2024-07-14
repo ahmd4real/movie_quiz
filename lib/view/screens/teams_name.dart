@@ -63,12 +63,13 @@ class _TeamsNamePageState extends State<TeamsNamePage> {
           for (int i = 0; i < widget.numberOfTeams; i++)
             Padding(
               padding:
-                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32),
+                  const EdgeInsets.symmetric(vertical: 8,horizontal: 32),
               child: CustomTextField(
                 labelText: "فريق ${i + 1}",
                 controller: controllers[i],
               ),
             ),
+           const SizedBox(height: 24),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -80,7 +81,8 @@ class _TeamsNamePageState extends State<TeamsNamePage> {
                 },
               )
             ],
-          )
+          ),
+          const SizedBox(height: 32),
         ],
       ),
     );

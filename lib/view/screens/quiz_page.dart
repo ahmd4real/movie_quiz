@@ -4,6 +4,7 @@ import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/models/data_file.dart';
 import 'package:movie_quiz/view/screens/results_page.dart';
 import 'package:movie_quiz/view/widgets/custom_button.dart';
+import 'package:movie_quiz/view/widgets/custom_slide_transition.dart';
 
 import 'package:timer_count_down/timer_controller.dart';
 import 'package:timer_count_down/timer_count_down.dart';
@@ -107,11 +108,12 @@ class _QuizPageState extends State<QuizPage> {
                             onTap: () {
                               Navigator.pushReplacement(
                                   context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ResultsPage(
-                                            teamNames: widget.teamNames,
-                                            score: score,
-                                          )));
+                                  PageTransition(ResultsPage(teamNames: widget.teamNames, score: score)));
+                                  // MaterialPageRoute(
+                                  //     builder: (context) => ResultsPage(
+                                  //           teamNames: widget.teamNames,
+                                  //           score: score,
+                                  //         )));
                             }),
                       ],
                     ),

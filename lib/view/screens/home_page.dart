@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/view/screens/teams_name.dart';
 import 'package:movie_quiz/view/widgets/custom_button.dart';
+import 'package:movie_quiz/view/widgets/custom_slide_transition.dart';
 
 import 'package:movie_quiz/view/widgets/custom_text_field.dart';
 
@@ -42,14 +44,12 @@ class HomePage extends StatelessWidget {
                     numberOfTeams = int.parse(controller.text);
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            TeamsNamePage(numberOfTeams: numberOfTeams),
-                      ),
+                      PageTransition(TeamsNamePage(numberOfTeams: numberOfTeams)),
                     );
                   })
             ],
-          )
+          ),
+          const SizedBox(height: 32),
         ],
       ),
     );
