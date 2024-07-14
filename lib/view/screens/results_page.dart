@@ -17,13 +17,13 @@ class ResultsPage extends StatelessWidget {
 
     for (int i = 0; i < teamNames.length; i++) {
       if (scoreMap.containsKey(score[i])) {
-        score[i]*=(20+i); 
+        score[i] *= (20 + i);
         //print('score added ${score[i]}, i vale ${i}');
       }
       scoreMap[score[i]] = teamNames[i];
     }
     // to sort the map in descending order according to score
-   var sortedMap = scoreMap.entries.toList()
+    var sortedMap = scoreMap.entries.toList()
       ..sort((a, b) => b.key.compareTo(a.key));
 
     return Scaffold(
@@ -41,7 +41,6 @@ class ResultsPage extends StatelessWidget {
                     parent: AlwaysScrollableScrollPhysics()),
                 itemCount: teamNames.length,
                 itemBuilder: (BuildContext c, int i) {
-                  print('i value $i');
                   return AnimationConfiguration.staggeredList(
                     position: i,
                     delay: const Duration(milliseconds: 100),
@@ -76,7 +75,8 @@ class ResultsPage extends StatelessWidget {
                             child: ListTile(
                               title: ConstrainedBox(
                                 constraints: BoxConstraints(
-                                  maxHeight: MediaQuery.of(context).size.height / 4.5,
+                                  maxHeight:
+                                      MediaQuery.of(context).size.height / 4.5,
                                   maxWidth:
                                       MediaQuery.of(context).size.width / 3,
                                 ),
@@ -93,12 +93,7 @@ class ResultsPage extends StatelessWidget {
                                 ),
                               ),
                               trailing: Text(
-                              
-                                '${sortedMap[i].key<=10?
-                                sortedMap[i].key
-                                :
-                               sortedMap[i].key~/(20+i)
-                                }/10',
+                                '${sortedMap[i].key <= 10 ? sortedMap[i].key : sortedMap[i].key ~/ (20 + i)}/10',
                                 style: const TextStyle(
                                     fontFamily: font,
                                     color: kYellow,
@@ -130,5 +125,5 @@ class ResultsPage extends StatelessWidget {
         ),
       ),
     );
-  }     
+  }
 }

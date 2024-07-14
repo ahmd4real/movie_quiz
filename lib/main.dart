@@ -25,7 +25,6 @@ class MovieQuiz extends StatelessWidget {
       locale: const Locale('ar'),
       routes: {
         HomePage.id: (context) => HomePage(),
-       
       },
       initialRoute: HomePage.id,
     );

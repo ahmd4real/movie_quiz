@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
 
 class CustomButton extends StatelessWidget {
-  CustomButton(
+  const CustomButton(
       {super.key,
-     // required this.color,
       this.fontSize = 32,
       required this.buttonWidth,
       this.onTap,
       required this.text,
       this.weight = FontWeight.w600});
   final String text;
-  //final Color color;
-  final double fontSize,buttonWidth;
+
+  final double fontSize, buttonWidth;
   final Function()? onTap;
   final FontWeight weight;
   @override
