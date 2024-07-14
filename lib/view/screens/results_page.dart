@@ -6,10 +6,10 @@ import 'package:movie_quiz/view/widgets/custom_image_button.dart';
 import 'package:movie_quiz/view/widgets/custom_slide_transition.dart';
 
 class ResultsPage extends StatelessWidget {
-  const ResultsPage({super.key, required this.teamNames, required this.score});
-  static const String id = "results_page";
+  const ResultsPage({super.key, required this.teamNames, required this.score, required this.questionsNumber});
   final List<String> teamNames;
   final List<int> score;
+  final int questionsNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +89,7 @@ class ResultsPage extends StatelessWidget {
                                   ),
                                 ),
                                 trailing: Text(
-                                  '${sortedMap[i].value}/10',
+                                  '$questionsNumber/${sortedMap[i].value}',
                                   style: const TextStyle(
                                       fontFamily: font,
                                       color: kYellow,

@@ -6,21 +6,30 @@ class CustomTextField extends StatelessWidget {
     required this.labelText,
     required this.controller,
     this.keyboardType = TextInputType.text,
+     this.errorMsg='ما تقول كام يعم',
     super.key,
   });
 
   final String labelText;
   final TextEditingController controller;
   final TextInputType keyboardType;
-   //TODO: add validation
+  final String errorMsg;
+  
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return  errorMsg;
+        }
+        return null;
+      },
       cursorColor: kYellow,
       style: const TextStyle(color: kWhite, fontFamily: font),
       controller: controller,
       keyboardType: keyboardType,
       decoration: InputDecoration(
+        errorStyle: const TextStyle(color: kErrorBorderColor, fontFamily: font, fontSize: 16),
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(12.0)),
           borderSide: BorderSide(color: kWhite),
@@ -32,6 +41,14 @@ class CustomTextField extends StatelessWidget {
         enabledBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(12.0)),
           borderSide: BorderSide(color: kWhite),
+        ),
+        errorBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12.0)),
+          borderSide: BorderSide(color: kErrorBorderColor),
+        ),
+        focusedErrorBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12.0)),
+          borderSide: BorderSide(color: kErrorBorderColor),
         ),
         labelText: labelText,
         hintStyle: const TextStyle(color: kWhite),

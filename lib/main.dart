@@ -23,10 +23,8 @@ class MovieQuiz extends StatelessWidget {
       theme: ThemeData(),
       debugShowCheckedModeBanner: false,
       locale: const Locale('ar'),
-      routes: {
-        HomePage.id: (context) => HomePage(),
-      },
-      initialRoute: HomePage.id,
+      home:  HomePage(),
+      
     );
   }
 }

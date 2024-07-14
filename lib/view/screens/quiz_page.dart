@@ -11,9 +11,9 @@ import 'package:timer_count_down/timer_count_down.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 
 class QuizPage extends StatefulWidget {
-  const QuizPage({super.key, required this.teamNames});
-  static const String id = "quiz_page";
+  const QuizPage({super.key, required this.teamNames,required this.questionsNumber});
   final List<String> teamNames;
+  final int questionsNumber;
 
   @override
   State<QuizPage> createState() => _QuizPageState();
@@ -51,7 +51,7 @@ class _QuizPageState extends State<QuizPage> {
       totalQuestionsAsked++;
 
       //10 is number of questions per team
-      if (totalQuestionsAsked >= widget.teamNames.length * 10) {
+      if (totalQuestionsAsked >= widget.teamNames.length * widget.questionsNumber) {
         currentQuestion = -1;
       } else {
         teamIndex = (teamIndex + 1) % widget.teamNames.length;
@@ -109,6 +109,7 @@ class _QuizPageState extends State<QuizPage> {
                               Navigator.pushReplacement(
                                   context,
                                   PageTransition(ResultsPage(
+                                      questionsNumber: widget.questionsNumber,
                                       teamNames: widget.teamNames,
                                       score: score)));
                             }),

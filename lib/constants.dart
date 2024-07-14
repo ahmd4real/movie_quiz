@@ -8,6 +8,7 @@ const Color kYellow = Color(0xffe8ad07);
 const Color noColor = Color(0x00000000);
 const Color kBackgroundColor = Color(0xff313131);
 const Color kQuiestionColor = Color.fromARGB(255, 78, 78, 78);
+const Color kErrorBorderColor = Color.fromARGB(255, 255, 60, 0);
 
 //fonts
 const String font = 'Marhey';

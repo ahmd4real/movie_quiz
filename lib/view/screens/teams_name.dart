@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
+import 'package:movie_quiz/view/screens/home_page.dart';
 import 'package:movie_quiz/view/screens/quiz_page.dart';
 import 'package:movie_quiz/view/widgets/custom_button.dart';
+import 'package:movie_quiz/view/widgets/custom_slide_transition.dart';
 
 import 'package:movie_quiz/view/widgets/custom_text_field.dart';
 
 class TeamsNamePage extends StatefulWidget {
-  const TeamsNamePage({super.key, required this.numberOfTeams});
-  static const String id = "teams_name_page";
+  const TeamsNamePage(
+      {super.key, required this.numberOfTeams, required this.questionsNumber});
   final int numberOfTeams;
+  final int questionsNumber;
   @override
   State<TeamsNamePage> createState() => _TeamsNamePageState();
 }
 
 class _TeamsNamePageState extends State<TeamsNamePage> {
   List<TextEditingController> controllers = [];
-
+  GlobalKey<FormState> formKey = GlobalKey();
   @override
   void initState() {
     super.initState();
@@ -40,50 +43,56 @@ class _TeamsNamePageState extends State<TeamsNamePage> {
 
     Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-            builder: (context) => QuizPage(
-                  teamNames: teamNames,
-                )));
+        PageTransition(QuizPage(
+          teamNames: teamNames,
+          questionsNumber: widget.questionsNumber,
+        )));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBackgroundColor,
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 32.0),
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.4,
-              width: double.infinity,
-              child: Image.asset(logoWhite),
-            ),
-          ),
-          for (int i = 0; i < widget.numberOfTeams; i++)
+      body: Form(
+        key: formKey,
+        child: ListView(
+          children: [
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 8,horizontal: 32),
-              child: CustomTextField(
-                labelText: "فريق ${i + 1}",
-                controller: controllers[i],
+              padding: const EdgeInsets.only(top: 32.0),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.4,
+                width: double.infinity,
+                child: Image.asset(logoWhite),
               ),
             ),
-           const SizedBox(height: 24),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CustomButton(
-                buttonWidth: 0.83,
-                text: "اللي بعده",
-                onTap: () {
-                  saveTeamNames();
-                },
-              )
-            ],
-          ),
-          const SizedBox(height: 32),
-        ],
+            for (int i = 0; i < widget.numberOfTeams; i++)
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
+                child: CustomTextField(
+                  errorMsg: 'الاسم ياااا',
+                  labelText: "فريق ${i + 1}",
+                  controller: controllers[i],
+                ),
+              ),
+            const SizedBox(height: 24),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CustomButton(
+                  buttonWidth: 0.83,
+                  text: "اللي بعده",
+                  onTap: () {
+                    if (formKey.currentState!.validate()) {
+                      saveTeamNames();
+                    }
+                  },
+                )
+              ],
+            ),
+            const SizedBox(height: 32),
+          ],
+        ),
       ),
     );
   }
