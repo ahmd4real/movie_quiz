@@ -56,6 +56,14 @@ android {
         }
     }
     // other configurations
+    configurations.all {
+    resolutionStrategy.eachDependency { details ->
+        if (details.requested.group == 'org.jetbrains.kotlin') {
+            details.useVersion '1.8.22' // use the Kotlin version you want to resolve conflicts
+        }
+    }
+}
+
 
     applicationVariants.all { variant ->
         variant.outputs.all {
