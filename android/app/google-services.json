@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "871871661369",
+    "project_id": "movies-620bb",
+    "storage_bucket": "movies-620bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:871871661369:android:d903ddf73791ebe27f54e8",
+        "android_client_info": {
+          "package_name": "com.example.movie_quiz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQfXk-oSvsUr1cU6KJ7PsG5ual80wmQLI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
