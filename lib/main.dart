@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_quiz/firebase_options.dart';
 import 'package:movie_quiz/view/screens/home_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:movie_quiz/view/screens/test_page.dart';
 import 'generated/l10n.dart';
 
 void main() async{
@@ -29,7 +30,7 @@ class MovieQuiz extends StatelessWidget {
       theme: ThemeData(),
       debugShowCheckedModeBanner: false,
       locale: const Locale('ar'),
-      home:  HomePage(),
+      home:  HomePage(),// GetUserName('4qwg20rZgxl4y01xWAEp'),
       
     );
   }

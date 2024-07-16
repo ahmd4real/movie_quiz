@@ -37,6 +37,12 @@ class _QuizPageState extends State<QuizPage> {
     super.initState();
     teamQuestionCount = List.filled(widget.teamNames.length, 0);
     score = List.filled(widget.teamNames.length, 0);
+
+    // questionOrder = List.generate(widget.questionsNumber, (index) => index);
+    // questionOrder.shuffle();
+    // currentQuestion = questionOrder[0];
+
+
     questionOrder = List.generate(data.length, (index) => index);
     questionOrder.shuffle();
     currentQuestion = questionOrder[0];
