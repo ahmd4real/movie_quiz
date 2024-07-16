@@ -1,5 +1,7 @@
 import 'dart:core';
 
+
+
 class Question {
   String question;
   final List<String> options;
@@ -9,6 +11,8 @@ class Question {
     required this.options,
     required this.answerIndex,
   });
+
+ 
 }
 
 final data = [
@@ -126,21 +130,13 @@ final data = [
     options: ["الناظر", "الفرن", "أخطر رجل في العالم"],
     answerIndex: 1,
   ),
-  Question(
-    question: "انت مش ابني، انت لقيط",
-    options: ["طير إنت", "الخطايا", "الناظر"],
-    answerIndex: 1,
-  ),
+
   Question(
     question: "أنا قلت كلمتي مش ممكن تنزل الأرض أبداً",
     options: ["الناظر", "ابن حميدو", "الخطايا"],
     answerIndex: 1,
   ),
-  Question(
-    question: "هاروح اتحزم وأجيلك",
-    options: ["ابن حميدو", "سيدة القصر", "الناظر"],
-    answerIndex: 1,
-  ),
+
   Question(
     question: "انت مش ابني، انت لقيط",
     options: ["سيدة القصر", "الخطايا", "الناظر"],
@@ -194,11 +190,6 @@ final data = [
   Question(
     question: "انسان الغاب طويل الناب",
     options: ["ابن حميدو", "النمر الأسود", "الكيف"],
-    answerIndex: 0,
-  ),
-  Question(
-    question: "الإنسان دعيف",
-    options: ["ابراهيم الأبيض", "اللمبي", "أحبك يا حسن"],
     answerIndex: 0,
   ),
   Question(
@@ -564,14 +555,11 @@ final data = [
     options: ["  ضربة شمس", "جري الوحوش", "  حبيبي دئما"],
     answerIndex: 1,
   ),
-
-  //the new data added
   Question(
     question: "الليلة يا عمدة.. هي حبكت",
     options: ["أحبك يا حسن", "ابن حميدو", "الزوجة الثانية"],
     answerIndex: 2,
   ),
-
   Question(
     question: "هو بعينه وغباوته ووشه العكر",
     options: ["أحبك يا حسن", "ابن حميدو", "إسماعيل ياسين في الأسطول"],
@@ -716,11 +704,7 @@ final data = [
     options: ["غبى منه فيه", "شارع الحب", "ريا وسكينة"],
     answerIndex: 0,
   ),
-  Question(
-    question: "يا ناس يا لوكال يا شعبيين",
-    options: ["إتش دبور", "شارع الحب", "ريا وسكينة"],
-    answerIndex: 0,
-  ),
+
   Question(
     question: "طاعة الوالدين أهم من طاعة الأب والأم",
     options: ["مسرح مصر", "شارع الحب", "ريا وسكينة"],
@@ -738,16 +722,13 @@ final data = [
     answerIndex: 1,
   ),
 
-  
-  
-
   Question(
     question: "متقلوش اوي ف الاكل يولاد عشان تقدروا تلعبوا الماتش",
     options: ["التجربة الدنماركية", " بوشكاش", "الحريفة"],
     answerIndex: 1,
   ),
 
-   Question(
+  Question(
     question: "يجدع يجدع",
     options: ["احترس من الخط", " فول الصين العظيم", "عندليب الدقي"],
     answerIndex: 1,
@@ -765,35 +746,30 @@ final data = [
     answerIndex: 1,
   ),
 
-  
-  
   Question(
     question: "ارمي اي يعم دا الضنا غالي",
     options: ["اوعا وشك", "ابو علي", "سيد العاطفي"],
     answerIndex: 1,
   ),
 
-  
   Question(
     question: "اهو كيفي كدا",
     options: ["ف محطة مصر", "ابو علي", "الكيف"],
     answerIndex: 1,
   ),
 
-   
   Question(
     question: "اي يجدع انت الكلام الماسخ اللي بتجوله ده",
     options: ["واحد صعيدي", "الياشا تلميذ", "كتكوت"],
     answerIndex: 1,
   ),
-   
+
   Question(
     question: "ده لفظ يقوله دكتور محترم.. عيب على المعطف اللي انت لابسه!",
     options: ["واحد صعيدي", "طير انت", "كتكوت"],
     answerIndex: 1,
   ),
 
-  
   Question(
     question: "ميس ريم ده اسم مركب؟ ولا الوالد اسمه ريم؟",
     options: ["ابو علي", "حراميه في كي جي تو", "حراميه في تايلاند"],
@@ -806,53 +782,167 @@ final data = [
     answerIndex: 1,
   ),
 
-  
   Question(
     question: "الله يكون في عونك يا سامية",
     options: ["غش الزوجية", "غبي منه فيه", "محامي خلع"],
     answerIndex: 1,
   ),
 
-  
   Question(
     question: "إحنا بقينا بنتعلق أكتر ما بنستحمى؟",
     options: ["عندليب الدقي", "وش اجرام", "يا انا يا خالتي"],
     answerIndex: 1,
   ),
-    
+
   Question(
     question: "اهرب يا ياسين.. اهرب ربنا معاك",
     options: ["واحد من الناس", "حرب ايطاليا", "تيتو"],
     answerIndex: 1,
   ),
-   
-  Question
-  (
-    question:"ابعد عن حيحا",
+
+  Question(
+    question: "ابعد عن حيحا",
     options: ["تتح", "امير الظلام", "طيور الظلام"],
     answerIndex: 1,
   ),
 
   Question(
-    question:"مابيعرفش يوجفها ما بيعرفش يوجفها",
+    question: "مابيعرفش يوجفها ما بيعرفش يوجفها",
     options: ["المتسول", "بطل من ورق", "المشبوه"],
     answerIndex: 1,
   ),
   Question(
-    question:"ايه الليل اللى هجم ده؟",
+    question: "ايه الليل اللى هجم ده؟",
     options: ["اللمبي 8 جيجا", "اللي بالي بالك", "اللمبي"],
     answerIndex: 1,
   ),
 
   Question(
-    question:"أنا حطاك في دماغي، وبراقبك",
+    question: "أنا حطاك في دماغي، وبراقبك",
     options: ["الفار الطباخ", "شركة المرعبين المحدودة", "بيتر بان"],
     answerIndex: 1,
   ),
-  
+
   Question(
-    question:"صعبان عليا حالكم وانتو ماشيين وراها زي الغنم!",
-    options: ["شركة المرعبين المحدودة","سنووايت والأقزام السبعة", "بيتر بان"],
+    question: "صعبان عليا حالكم وانتو ماشيين وراها زي الغنم!",
+    options: ["شركة المرعبين المحدودة", "سنووايت والأقزام السبعة", "بيتر بان"],
+    answerIndex: 1,
+  ),
+
+  Question(
+    question: "مش فاكرك ياض",
+    options: ["اللمبى", "الناظر", "عبود على الحدود"],
+    answerIndex: 1,
+  ),
+  Question(
+    question: "ايه يا محمد التلج مش ساقع ليه",
+    options: ["كلمنى شكرا", "صرخه نمله", "سوق الجمعه"],
+    answerIndex: 2,
+  ),
+  Question(
+    question: "الحب ولع في الدره",
+    options: ["وش اجرام", "عندليب الدقي", "عسكر في المعسكر"],
+    answerIndex: 2,
+  ),
+  Question(
+    question: "سورى فكرته برتقال",
+    options: ["نمس بوند", "اسد واربع قطط", "غبى منه فيه"],
+    answerIndex: 0,
+  ),
+  Question(
+    question: "اموت فاللبان واللى مبانشى",
+    options: ["عسكر فالمعسكر", "بنك الحظ", "تتح"],
+    answerIndex: 1,
+  ),
+  Question(
+    question: "صباح العذاب الوان",
+    options: ["قلب الاسد", "الالمانى", "شد اجزاء"],
+    answerIndex: 1,
+  ),
+  Question(
+    question: "ايه اللى بيزقنى من تحت ده يهادى",
+    options: ["اللى بالى بالك", "المصلحه", "تتح"],
+    answerIndex: 2,
+  ),
+  Question(
+    question: "انا عندي ليك شغلانه ميه ميه تشتغل رئيس جمهوريه",
+    options: ["قلب الاسد", "عبده موته", "الالمانى"],
+    answerIndex: 2,
+  ),
+  Question(
+    question: "الاخضر بييق خدعه",
+    options: ["حرميه في تايلاند", "مقلب حرميه", "الخليه"],
+    answerIndex: 1,
+  ),
+  Question(
+    question: "محسسني انك واخد ابن اختك معاك",
+    options: ["الخليه", "اللمبي", "بوشكاش"],
+    answerIndex: 0,
+  ),
+  Question(
+    question: "ساموعليكووو",
+    options: ["ظرف طارق", "عسل اسود", "اسف على الازعاج"],
+    answerIndex: 0,
+  ),
+  Question(
+    question: "اموت انا فقفشات الافلام",
+    options: ["طير انتا", "اخر ديك فى مصر", "سيما على بابا"],
+    answerIndex: 0,
+  ),
+  Question(
+    question: "يطلعوا كام ال250 الف جنيه دول",
+    options: ["كركر", "بوحه", "بوشكاش"],
+    answerIndex: 2,
+  ),
+  Question(
+    question: "يارب اوقف الحال",
+    options: ["الالمانى", "عبدو موته", "قلب الاسد"],
+    answerIndex: 0,
+  ),
+  Question(
+    question: "اصلي حبيتش الموضوع اوي",
+    options: ["تيتة رهيبة", "يا انا يا خالتي", "جاءنا البيان التالي"],
+    answerIndex: 2,
+  ),
+  Question(
+    question: "بتعرف تقرا كويس امال بتسقط ليه",
+    options: ["حاحا وتفاحة", "صعيدي في الجامعة الامريكية", "كتكوت"],
+    answerIndex: 0,
+  ),
+  Question(
+    question: "انا مشكلتي ان كان فيه حاجات مهمة جدًا قدام عنيا وماعرفتش اشوفها",
+    options: ["عمارة يعقوبيان", "خيانة مشروعة", "ويچا"],
+    answerIndex: 0,
+  ),
+  Question(
+    question: "انا ي بنتى",
+    options: ["كلمني شكرا", "كازبلانكا", "صرخه نمله"],
+    answerIndex: 0,
+  ),
+  Question(
+    question: "فى حاجه يعماد؟",
+    options: ["ابو العربى", "عايز حقى", "توم وجيمى"],
+    answerIndex: 0,
+  ),
+  Question(
+    question: "الفلوس بتاعتنا انما المطوه مش بتاعتنا",
+    options: ["غبى منه فيه", "بنك الحظ", "مطب صناعى"],
+    answerIndex: 0,
+  ),
+  Question(
+    question: "انتا ايه حكايتك ايه حكايتك قولى",
+    options: ["حريم كريم", "عصابه الدكتور عمر", "جوه اللعبه"],
+    answerIndex: 1,
+  ),
+
+  Question(
+    question: "مش ممكن الفنان جابر حسنى",
+    options: ["اسد واربع قطط", "عمر وسلمى", "عمر وسلمى 2"],
+    answerIndex: 0,
+  ),
+  Question(
+    question: "ده صالعلك خالص هو اخوك",
+    options: ["الفرح", "صرخه نمله", "الكيف"],
     answerIndex: 1,
   ),
 ];
