@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-
 import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/models/data_file.dart';
+import 'package:movie_quiz/utilities.dart';
 import 'package:movie_quiz/view/screens/results_page.dart';
 import 'package:movie_quiz/view/widgets/custom_button.dart';
 import 'package:movie_quiz/view/widgets/custom_slide_transition.dart';
-
 import 'package:timer_count_down/timer_controller.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 
+
 class QuizPage extends StatefulWidget {
-  const QuizPage({super.key, required this.teamNames,required this.questionsNumber});
+  const QuizPage(
+      {super.key, required this.teamNames, required this.questionsNumber});
   final List<String> teamNames;
   final int questionsNumber;
 
@@ -31,24 +32,35 @@ class _QuizPageState extends State<QuizPage> {
   final CountdownController controller = CountdownController(autoStart: true);
   bool quizStarted = false;
   int totalQuestionsAsked = 0;
+  List<String> docsIds = [];
+  List<Question> data = [];
 
   @override
   void initState() {
     super.initState();
+    initializeQuiz();
+  }
+
+  Future<void> initializeQuiz() async {
+    
     teamQuestionCount = List.filled(widget.teamNames.length, 0);
     score = List.filled(widget.teamNames.length, 0);
+    docsIds = await fetchIndexes();
+    docsIds.shuffle();
 
-    // questionOrder = List.generate(widget.questionsNumber, (index) => index);
-    // questionOrder.shuffle();
-    // currentQuestion = questionOrder[0];
-
+    data = await fetchQuestions(
+        (widget.questionsNumber * widget.teamNames.length), docsIds);
 
     questionOrder = List.generate(data.length, (index) => index);
-    questionOrder.shuffle();
+    //questionOrder.shuffle();
     currentQuestion = questionOrder[0];
+    
+
+    setState(() {});
   }
 
   void nextQuestion() {
+    
     setState(() {
       answerState = false;
       _selectedAnswerIndex = null;
@@ -56,8 +68,9 @@ class _QuizPageState extends State<QuizPage> {
       teamQuestionCount[teamIndex]++;
       totalQuestionsAsked++;
 
-      //10 is number of questions per team
-      if (totalQuestionsAsked >= widget.teamNames.length * widget.questionsNumber) {
+     
+      if (totalQuestionsAsked >=
+          widget.teamNames.length * widget.questionsNumber) {
         currentQuestion = -1;
       } else {
         teamIndex = (teamIndex + 1) % widget.teamNames.length;
@@ -93,7 +106,7 @@ class _QuizPageState extends State<QuizPage> {
           color: kBackgroundColor,
         ),
         child: quizStarted
-            ? currentQuestion != -1
+            ? (currentQuestion >= 0 && currentQuestion < data.length)
                 ? QuizQuestion(
                     teamIndex: teamIndex,
                     question: data[currentQuestion],
@@ -125,7 +138,7 @@ class _QuizPageState extends State<QuizPage> {
             : Center(
                 child: Countdown(
                     controller: controller,
-                    seconds: 1,
+                    seconds: 5,
                     build: (_, double time) => WidgetAnimator(
                         atRestEffect: WidgetRestingEffects.pulse(),
                         child: Image.asset(logoWhite)),
