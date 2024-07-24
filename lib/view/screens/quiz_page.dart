@@ -9,7 +9,6 @@ import 'package:timer_count_down/timer_controller.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 
-
 class QuizPage extends StatefulWidget {
   const QuizPage(
       {super.key, required this.teamNames, required this.questionsNumber});
@@ -34,6 +33,7 @@ class _QuizPageState extends State<QuizPage> {
   int totalQuestionsAsked = 0;
   List<String> docsIds = [];
   List<Question> data = [];
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -42,7 +42,6 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   Future<void> initializeQuiz() async {
-    
     teamQuestionCount = List.filled(widget.teamNames.length, 0);
     score = List.filled(widget.teamNames.length, 0);
     docsIds = await fetchIndexes();
@@ -50,17 +49,20 @@ class _QuizPageState extends State<QuizPage> {
 
     data = await fetchQuestions(
         (widget.questionsNumber * widget.teamNames.length), docsIds);
+    if (data.isNotEmpty) {
+      questionOrder = List.generate(data.length, (index) => index);
+      //questionOrder.shuffle();
+      currentQuestion = questionOrder[0];
+    } else {
+      currentQuestion = -1;
+    }
 
-    questionOrder = List.generate(data.length, (index) => index);
-    //questionOrder.shuffle();
-    currentQuestion = questionOrder[0];
-    
-
-    setState(() {});
+    setState(() {
+      isLoading = false;
+    });
   }
 
   void nextQuestion() {
-    
     setState(() {
       answerState = false;
       _selectedAnswerIndex = null;
@@ -68,7 +70,6 @@ class _QuizPageState extends State<QuizPage> {
       teamQuestionCount[teamIndex]++;
       totalQuestionsAsked++;
 
-     
       if (totalQuestionsAsked >=
           widget.teamNames.length * widget.questionsNumber) {
         currentQuestion = -1;
@@ -105,50 +106,59 @@ class _QuizPageState extends State<QuizPage> {
         decoration: const BoxDecoration(
           color: kBackgroundColor,
         ),
-        child: quizStarted
-            ? (currentQuestion >= 0 && currentQuestion < data.length)
-                ? QuizQuestion(
-                    teamIndex: teamIndex,
-                    question: data[currentQuestion],
-                    selectedAnswerIndex: _selectedAnswerIndex,
-                    isCorrect: _isCorrect,
-                    onAnswerSelected: _selectAnswer,
-                    controller: controller,
-                    onNextQuestion: nextQuestion,
-                    teamNames: widget.teamNames,
-                  )
+        child: isLoading
+            ? Center(
+                child: WidgetAnimator(
+                  atRestEffect: WidgetRestingEffects.pulse(),
+                  child: Image.asset(logoWhite),
+                ),
+              )
+            : quizStarted
+                ? currentQuestion != -1
+                    ? QuizQuestion(
+                        teamIndex: teamIndex,
+                        question: data[currentQuestion],
+                        selectedAnswerIndex: _selectedAnswerIndex,
+                        isCorrect: _isCorrect,
+                        onAnswerSelected: _selectAnswer,
+                        controller: controller,
+                        onNextQuestion: nextQuestion,
+                        teamNames: widget.teamNames,
+                      )
+                    : Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CustomButton(
+                                buttonWidth: 0.83,
+                                text: "مين اللي كسب",
+                                onTap: () {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      PageTransition(ResultsPage(
+                                          questionsNumber:
+                                              widget.questionsNumber,
+                                          teamNames: widget.teamNames,
+                                          score: score)));
+                                }),
+                          ],
+                        ),
+                      )
                 : Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustomButton(
-                            buttonWidth: 0.83,
-                            text: "مين اللي كسب",
-                            onTap: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  PageTransition(ResultsPage(
-                                      questionsNumber: widget.questionsNumber,
-                                      teamNames: widget.teamNames,
-                                      score: score)));
-                            }),
-                      ],
-                    ),
-                  )
-            : Center(
-                child: Countdown(
-                    controller: controller,
-                    seconds: 5,
-                    build: (_, double time) => WidgetAnimator(
-                        atRestEffect: WidgetRestingEffects.pulse(),
-                        child: Image.asset(logoWhite)),
-                    interval: const Duration(milliseconds: 100),
-                    onFinished: () {
-                      setState(() {
-                        quizStarted = true;
-                      });
-                    }),
-              ),
+                    child: Countdown(
+                        controller: controller,
+                        seconds: 1,
+                        build: (_, double time) => WidgetAnimator(
+                            atRestEffect: WidgetRestingEffects.pulse(),
+                            child: Image.asset(logoWhite)
+                            ),
+                        interval: const Duration(milliseconds: 100),
+                        onFinished: () {
+                          setState(() {
+                            quizStarted = true;
+                          });
+                        }),
+                  ),
       ),
     );
   }

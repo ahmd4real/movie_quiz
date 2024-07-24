@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_quiz/firebase_options.dart';
+import 'package:movie_quiz/view/screens/add_questions_page.dart';
 import 'package:movie_quiz/view/screens/home_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:movie_quiz/view/screens/test_page.dart';
@@ -30,7 +31,7 @@ class MovieQuiz extends StatelessWidget {
       theme: ThemeData(),
       debugShowCheckedModeBanner: false,
       locale: const Locale('ar'),
-      home:  HomePage(),// GetUserName('4qwg20rZgxl4y01xWAEp'),
+      home:  AddQuestionsPage(),// GetUserName('4qwg20rZgxl4y01xWAEp'),
       
     );
   }

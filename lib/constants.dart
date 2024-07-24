@@ -12,7 +12,7 @@ const Color kErrorBorderColor = Color.fromARGB(255, 255, 60, 0);
 
 //fonts
 const String font = 'Marhey';
-const String teamFont = 'Blaka';
+
 
 //const Strings
 const String buttonImg = 'assets/images/buttonImg.png';
