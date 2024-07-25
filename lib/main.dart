@@ -1,18 +1,23 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_quiz/firebase_options.dart';
+import 'package:movie_quiz/utilities.dart';
 import 'package:movie_quiz/view/screens/add_questions_page.dart';
 import 'package:movie_quiz/view/screens/home_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:movie_quiz/view/screens/test_page.dart';
 import 'generated/l10n.dart';
-
+List<String> docsIds = [];
 void main() async{
    WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
+   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-  );
+   );
+
+  
   runApp(const MovieQuiz());
+  docsIds = await fetchIndexes();
+  docsIds.shuffle();
 }
 
 class MovieQuiz extends StatelessWidget {
@@ -31,7 +36,7 @@ class MovieQuiz extends StatelessWidget {
       theme: ThemeData(),
       debugShowCheckedModeBanner: false,
       locale: const Locale('ar'),
-      home:  AddQuestionsPage(),// GetUserName('4qwg20rZgxl4y01xWAEp'),
+      home:  HomePage(),//AddQuestionsPage(),// GetUserName('4qwg20rZgxl4y01xWAEp'),
       
     );
   }

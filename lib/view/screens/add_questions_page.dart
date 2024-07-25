@@ -11,7 +11,7 @@ class AddQuestionsPage extends StatelessWidget {
   TextEditingController option2Controller = TextEditingController();
   TextEditingController option3Controller = TextEditingController();
   TextEditingController answerController = TextEditingController();
-  
+  List<String > options = ['الاول', 'الثاني', 'الثالث'];
   GlobalKey<FormState> formKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
@@ -59,6 +59,7 @@ class AddQuestionsPage extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 16),
+                 
                   CustomTextField(
                     errorMsg: 'الفيلم ياااا',
                     labelText: "الفيلم الاول",
