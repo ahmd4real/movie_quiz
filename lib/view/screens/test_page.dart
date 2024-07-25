@@ -24,15 +24,15 @@
 //             .catchError((error) => print("Failed to add question: $error"));
 
 //         ;
-//         // questions
-//         //     .add({
-//         //       "id":index+1,
-//         //       "question": data[index].question,
-//         //       "options": data[index].options,
-//         //       "answerIndex": data[index].answerIndex
-//         //     })
-//         //     .then((value) => print("Question Added"))
-//         //     .catchError((error) => print("Failed to add question: $error"));
+//         questions
+//             .add({
+//               "id":index+1,
+//               "question": data[index].question,
+//               "options": data[index].options,
+//               "answerIndex": data[index].answerIndex
+//             })
+//             .then((value) => print("Question Added"))
+//             .catchError((error) => print("Failed to add question: $error"));
 
 //         index++;
 //       } else {
