@@ -68,23 +68,7 @@ class HomePage extends StatelessWidget {
               ],
             ),
    const SizedBox(height: 32),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CustomButton(
-                    buttonWidth: 0.83,
-                    text: " عاوز تضيف سؤال؟؟!",
-                    onTap: () {
-                     
-                        Navigator.push(context, 
-                          PageTransition(AddQuestionsPage(
-                            
-                          )));
-                      
-                    }),
-              ],
-            ),
-            const SizedBox(height: 32),
+           
           ],
         ),
       ),

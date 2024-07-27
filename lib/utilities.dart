@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -149,14 +148,14 @@ void showAutoDismissDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        // Start a timer to automatically dismiss the dialog
+       
         Timer(const Duration(seconds: 2), () {
           Navigator.of(context).pop(true);
         });
 
         return const AlertDialog(
           backgroundColor: kBackgroundColor,
-          //title: Text('Auto Dismiss Dialog'),
+       
           content: Text("ابيض يا دولي ",
           textAlign: TextAlign.center,
                                         style: TextStyle(

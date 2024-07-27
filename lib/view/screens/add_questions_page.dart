@@ -22,7 +22,10 @@ class _AddQuestionsPageState extends State<AddQuestionsPage> {
   TextEditingController option3Controller = TextEditingController();
   TextEditingController answerController = TextEditingController();
 
-  List<String> options = ['الاول', 'الثاني', 'الثالث'];
+
+  List<TextEditingController> controllers = [];
+
+
 
   GlobalKey<FormState> formKey = GlobalKey();
 
