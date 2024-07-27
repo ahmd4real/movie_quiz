@@ -1,7 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/utilities.dart';
@@ -9,7 +8,7 @@ import 'package:movie_quiz/view/widgets/custom_button.dart';
 import 'package:movie_quiz/view/widgets/custom_text_field.dart';
 
 class AddQuestionsPage extends StatefulWidget {
-  AddQuestionsPage({super.key});
+  const AddQuestionsPage({super.key});
 
   @override
   _AddQuestionsPageState createState() => _AddQuestionsPageState();
@@ -22,10 +21,7 @@ class _AddQuestionsPageState extends State<AddQuestionsPage> {
   TextEditingController option3Controller = TextEditingController();
   TextEditingController answerController = TextEditingController();
 
-
   List<TextEditingController> controllers = [];
-
-
 
   GlobalKey<FormState> formKey = GlobalKey();
 
@@ -38,11 +34,15 @@ class _AddQuestionsPageState extends State<AddQuestionsPage> {
         backgroundColor: kBackgroundColor,
         elevation: 0,
         scrolledUnderElevation: 0,
+        iconTheme: const IconThemeData(color: kYellow),
       ),
       backgroundColor: kBackgroundColor,
       body: ModalProgressHUD(
         color: kBackgroundColor.withOpacity(0.3),
-        progressIndicator: const WorkSpace(),
+        progressIndicator: const SpinKitCircle(
+          color: kYellow,
+          size: 120.0,
+        ),
         inAsyncCall: isLoading,
         child: Form(
           key: formKey,
@@ -175,7 +175,7 @@ class _AddQuestionsPageState extends State<AddQuestionsPage> {
 
                           if (successed) {
                             showAutoDismissDialog(context);
-                            questionController.clear(); 
+                            questionController.clear();
                             option1Controller.clear();
                             option2Controller.clear();
                             option3Controller.clear();

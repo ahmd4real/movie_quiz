@@ -34,7 +34,7 @@ class MovieQuiz extends StatelessWidget {
       theme: ThemeData(),
       debugShowCheckedModeBanner: false,
       locale: const Locale('ar'),
-      home: HomePage(),
+      home: SafeArea(child: HomePage()),
       
     );
   }

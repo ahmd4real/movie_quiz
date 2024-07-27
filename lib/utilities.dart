@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/models/question_model.dart';
 import 'package:movie_quiz/view/screens/quiz_page.dart';
@@ -24,16 +23,13 @@ Future<List<Question>> fetchQuestions(
   List<Question> questions = [];
 
   // Fetch the questions from Firestore
-  for (int i = indexToStartFrom; i < numberOfQuestions+indexToStartFrom; i++) {
+  for (int i = indexToStartFrom;
+      i < numberOfQuestions + indexToStartFrom;
+      i++) {
     DocumentSnapshot snapshot =
         await firestore.collection('Questions').doc(docsIds[i]).get();
     questions.add(Question.fromFirestore(snapshot));
-   
-    
-  
   }
-
-  
 
   return questions;
 }
@@ -77,15 +73,14 @@ Future<bool> addQuestions(
 //       await firestore.collection('Questions').doc(docId).get();
 
 //   if (document.exists) {
-  
+
 //   } else {
-    
+
 //   }
 // }
 
-
-
-Future<bool> showAlertDialog(BuildContext context, String question, String answer) async {
+Future<bool> showAlertDialog(
+    BuildContext context, String question, String answer) async {
   bool sure = false;
   sure = await showDialog(
     context: context,
@@ -106,7 +101,8 @@ Future<bool> showAlertDialog(BuildContext context, String question, String answe
             children: [
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop(true); // Return true when "ايوه" is pressed
+                  Navigator.of(context)
+                      .pop(true); // Return true when "ايوه" is pressed
                 },
                 child: const Text('ايوه',
                     style: TextStyle(
@@ -114,7 +110,8 @@ Future<bool> showAlertDialog(BuildContext context, String question, String answe
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop(false); // Return false when "لا يعم" is pressed
+                  Navigator.of(context)
+                      .pop(false); // Return false when "لا يعم" is pressed
                 },
                 child: const Text('لا يعم',
                     style: TextStyle(
@@ -126,46 +123,30 @@ Future<bool> showAlertDialog(BuildContext context, String question, String answe
       );
     },
   );
-  return sure ?? false; 
-}
-
-
-class WorkSpace extends StatelessWidget {
-  const WorkSpace({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const SpinKitCircle(
-      color: kYellow,
-      size: 120.0,
-    );
-  }
+  return sure ?? false;
 }
 
 
 
 void showAutoDismissDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-       
-        Timer(const Duration(seconds: 2), () {
-          Navigator.of(context).pop(true);
-        });
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      Timer(const Duration(seconds: 2), () {
+        Navigator.of(context).pop(true);
+      });
 
-        return const AlertDialog(
+      return const AlertDialog(
           backgroundColor: kBackgroundColor,
-       
-          content: Text("ابيض يا دولي ",
-          textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 24,
-                                          color: kYellow,
-                                          fontFamily: font,
-                                          fontWeight: FontWeight.bold
-          
-          ),
-        ));
-      },
-    );
-  }
+          content: Text(
+            "ابيض يا دولي ",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 24,
+                color: kYellow,
+                fontFamily: font,
+                fontWeight: FontWeight.bold),
+          ));
+    },
+  );
+}

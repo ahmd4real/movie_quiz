@@ -10,7 +10,7 @@ import 'package:timer_count_down/timer_controller.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 
-int indexToStartFrom=0;
+int indexToStartFrom = 0;
 
 class QuizPage extends StatefulWidget {
   const QuizPage(
@@ -33,7 +33,7 @@ class _QuizPageState extends State<QuizPage> {
   final CountdownController controller = CountdownController(autoStart: true);
   bool quizStarted = false;
   int totalQuestionsAsked = 0;
-  
+
   List<Question> data = [];
   bool isLoading = true;
 
@@ -41,7 +41,6 @@ class _QuizPageState extends State<QuizPage> {
   void initState() {
     super.initState();
     initializeQuiz();
-   
   }
 
   Future<void> initializeQuiz() async {
@@ -50,18 +49,17 @@ class _QuizPageState extends State<QuizPage> {
     data = await fetchQuestions(
         (widget.questionsNumber * widget.teamNames.length), docsIds);
     if (data.isNotEmpty) {
-      questionOrder = List.generate(data.length, (indexToStartFrom) => indexToStartFrom);
+      questionOrder =
+          List.generate(data.length, (indexToStartFrom) => indexToStartFrom);
       currentQuestion = questionOrder[0];
     } else {
       currentQuestion = -1;
     }
-  
+
     setState(() {
       isLoading = false;
     });
   }
-
-
 
   void nextQuestion() {
     setState(() {
@@ -74,13 +72,12 @@ class _QuizPageState extends State<QuizPage> {
       if (totalQuestionsAsked >=
           widget.teamNames.length * widget.questionsNumber) {
         currentQuestion = -1;
-        indexToStartFrom=indexToStartFrom+totalQuestionsAsked;
-     
+        indexToStartFrom = indexToStartFrom + totalQuestionsAsked;
       } else {
         teamIndex = (teamIndex + 1) % widget.teamNames.length;
         currentQuestion =
             questionOrder[totalQuestionsAsked % questionOrder.length];
-         
+
         controller.restart();
       }
     });
@@ -111,8 +108,7 @@ class _QuizPageState extends State<QuizPage> {
           color: kBackgroundColor,
         ),
         child: isLoading
-            ?
-            Center(
+            ? Center(
                 child: WidgetAnimator(
                   atRestEffect: WidgetRestingEffects.pulse(),
                   child: Image.asset(logoWhite),
@@ -192,144 +188,142 @@ class QuizQuestion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Center(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          ConstrainedBox(
-            constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(context).size.height / 4.5,
-              maxWidth: MediaQuery.of(context).size.width * 0.8,
-            ),
-            child: FittedBox(
-              child: Text(
-                overflow: TextOverflow.fade,
-                teamNames[teamIndex],
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                    fontWeight: FontWeight.w700,
-                    color: kYellow,
-                    fontFamily: font,
-                    fontSize: 32),
-              ),
+    return Center(
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        ConstrainedBox(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height / 4.5,
+            maxWidth: MediaQuery.of(context).size.width * 0.8,
+          ),
+          child: FittedBox(
+            child: Text(
+              overflow: TextOverflow.fade,
+              teamNames[teamIndex],
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                  fontWeight: FontWeight.w700,
+                  color: kYellow,
+                  fontFamily: font,
+                  fontSize: 32),
             ),
           ),
-          const SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.3,
-              child: Center(
-                child: Text(question.question,
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.clip,
+        ),
+        const SizedBox(height: 8),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.3,
+            child: Center(
+              child: Text(question.question,
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.clip,
+                  style: const TextStyle(
+                      fontSize: 24.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800,
+                      fontFamily: font)),
+            ),
+          ),
+        ),
+        const SizedBox(height: 20.0),
+        ...question.options.asMap().entries.map((entry) {
+          int idx = entry.key;
+          String answer = entry.value;
+          Color buttonColor;
+
+          if (selectedAnswerIndex == null) {
+            buttonColor = kQuiestionColor;
+          } else if (idx == selectedAnswerIndex) {
+            buttonColor = isCorrect! ? kGreen : kRed;
+          } else if (idx == question.answerIndex) {
+            buttonColor = kGreen;
+          } else {
+            buttonColor = kQuiestionColor;
+          }
+
+          return Container(
+            margin: const EdgeInsets.symmetric(vertical: 7.0),
+            width: MediaQuery.of(context).size.width / 1.5,
+            decoration: BoxDecoration(
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black,
+                  blurRadius: 10,
+                  spreadRadius: 0.01,
+                ),
+              ],
+              gradient: const LinearGradient(
+                  colors: [kYellow, Color.fromARGB(255, 255, 210, 8)]),
+              color: kYellow,
+              border: Border.all(color: kYellow, width: 1.2),
+              borderRadius: BorderRadius.circular(24.0),
+            ),
+            child: ElevatedButton(
+              onPressed: () {
+                controller.pause();
+                selectedAnswerIndex == null ? onAnswerSelected(idx) : null;
+              },
+              style: ButtonStyle(
+                elevation: WidgetStateProperty.all(3),
+                overlayColor:
+                    WidgetStateProperty.all(Colors.black.withOpacity(0.5)),
+                shadowColor: WidgetStateProperty.all(Colors.black),
+                backgroundColor: WidgetStateProperty.resolveWith<Color>(
+                  (Set<WidgetState> states) {
+                    return buttonColor;
+                  },
+                ),
+              ),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: MediaQuery.of(context).size.height / 5,
+                  maxWidth: MediaQuery.of(context).size.width / 1.5,
+                ),
+                child: FittedBox(
+                  child: Text(
+                    answer,
+                    overflow: TextOverflow.fade,
                     style: const TextStyle(
-                        fontSize: 24.0,
                         color: Colors.white,
-                        fontWeight: FontWeight.w800,
-                        fontFamily: font)),
+                        fontSize: 24,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: font),
+                  ),
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 20.0),
-          ...question.options.asMap().entries.map((entry) {
-            int idx = entry.key;
-            String answer = entry.value;
-            Color buttonColor;
-
-            if (selectedAnswerIndex == null) {
-              buttonColor = kQuiestionColor;
-            } else if (idx == selectedAnswerIndex) {
-              buttonColor = isCorrect! ? kGreen : kRed;
-            } else if (idx == question.answerIndex) {
-              buttonColor = kGreen;
-            } else {
-              buttonColor = kQuiestionColor;
-            }
-
-            return Container(
-              margin: const EdgeInsets.symmetric(vertical: 7.0),
-              width: MediaQuery.of(context).size.width / 1.5,
-              decoration: BoxDecoration(
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black,
-                    blurRadius: 10,
-                    spreadRadius: 0.01,
-                  ),
-                ],
-                gradient: const LinearGradient(
-                    colors: [kYellow, Color.fromARGB(255, 255, 210, 8)]),
-                color: kYellow,
-                border: Border.all(color: kYellow, width: 1.2),
-                borderRadius: BorderRadius.circular(24.0),
-              ),
-              child: ElevatedButton(
-                onPressed: () {
-                  controller.pause();
-                  selectedAnswerIndex == null ? onAnswerSelected(idx) : null;
-                },
-                style: ButtonStyle(
-                  elevation: WidgetStateProperty.all(3),
-                  overlayColor:
-                      WidgetStateProperty.all(Colors.black.withOpacity(0.5)),
-                  shadowColor: WidgetStateProperty.all(Colors.black),
-                  backgroundColor: WidgetStateProperty.resolveWith<Color>(
-                    (Set<WidgetState> states) {
-                      return buttonColor;
-                    },
-                  ),
+          );
+        }),
+        const SizedBox(height: 16),
+        Countdown(
+            controller: controller,
+            seconds: 30,
+            build: (_, double time) => Text(
+                  time.toInt().toString(),
+                  style: const TextStyle(
+                      fontSize: 100,
+                      fontFamily: font,
+                      color: kYellow,
+                      fontWeight: FontWeight.w900),
                 ),
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxHeight: MediaQuery.of(context).size.height / 5,
-                    maxWidth: MediaQuery.of(context).size.width / 1.5,
-                  ),
-                  child: FittedBox(
-                    child: Text(
-                      answer,
-                      overflow: TextOverflow.fade,
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: font),
+            interval: const Duration(seconds: 1),
+            onFinished: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  duration: Duration(milliseconds: 500),
+                  content: Center(
+                      child: Text(
+                    'وقتك خلص يسطا😩',
+                    style: TextStyle(
+                      fontFamily: font,
+                      fontSize: 24,
                     ),
-                  ),
+                  )),
                 ),
-              ),
-            );
-          }),
-          const SizedBox(height: 16),
-          Countdown(
-              controller: controller,
-              seconds: 30,
-              build: (_, double time) => Text(
-                    time.toInt().toString(),
-                    style: const TextStyle(
-                        fontSize: 100,
-                        fontFamily: font,
-                        color: kYellow,
-                        fontWeight: FontWeight.w900),
-                  ),
-              interval: const Duration(seconds: 1),
-              onFinished: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    duration: Duration(milliseconds: 500),
-                    content: Center(
-                        child: Text(
-                      'وقتك خلص يسطا😩',
-                      style: TextStyle(
-                        fontFamily: font,
-                        fontSize: 24,
-                      ),
-                    )),
-                  ),
-                );
-                onNextQuestion();
-              }),
-        ]),
-      ),
+              );
+              onNextQuestion();
+            }),
+      ]),
     );
   }
 }

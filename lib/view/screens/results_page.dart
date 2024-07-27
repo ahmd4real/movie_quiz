@@ -7,7 +7,11 @@ import 'package:movie_quiz/view/widgets/custom_image_button.dart';
 import 'package:movie_quiz/view/widgets/custom_slide_transition.dart';
 
 class ResultsPage extends StatelessWidget {
-  const ResultsPage({super.key, required this.teamNames, required this.score, required this.questionsNumber});
+  const ResultsPage(
+      {super.key,
+      required this.teamNames,
+      required this.score,
+      required this.questionsNumber});
   final List<String> teamNames;
   final List<int> score;
   final int questionsNumber;
@@ -56,11 +60,8 @@ class ResultsPage extends StatelessWidget {
                       child: ListTile(
                         title: ConstrainedBox(
                           constraints: BoxConstraints(
-                            maxHeight:
-                                MediaQuery.of(context).size.height /
-                                    4.5,
-                            maxWidth:
-                                MediaQuery.of(context).size.width / 3,
+                            maxHeight: MediaQuery.of(context).size.height / 4.5,
+                            maxWidth: MediaQuery.of(context).size.width / 3,
                           ),
                           child: FittedBox(
                             child: Text(
@@ -88,25 +89,19 @@ class ResultsPage extends StatelessWidget {
                 },
               ),
             ),
-             Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CustomButton(
-                  buttonWidth: 0.83,
-                  text: " عاوز تضيف سؤال؟؟!",
-                  onTap: () {
-                   
-                      Navigator.push(context, 
-                        PageTransition(AddQuestionsPage(
-                          
-                        )));
-                    
-                  }),
-            ],
-          ),
-          const SizedBox(height: 32),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CustomButton(
+                    buttonWidth: 0.83,
+                    text: " عاوز تضيف سؤال؟؟!",
+                    onTap: () {
+                      Navigator.push(context, PageTransition(const AddQuestionsPage()));
+                    }),
+              ],
+            ),
+            const SizedBox(height: 32),
             Padding(
-            
                 padding: const EdgeInsets.all(8.0),
                 child: CustomImageButton(
                   img: buttonImg,

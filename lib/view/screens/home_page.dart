@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
-import 'package:movie_quiz/view/screens/add_questions_page.dart';
 import 'package:movie_quiz/view/screens/teams_name.dart';
 import 'package:movie_quiz/view/widgets/custom_button.dart';
 import 'package:movie_quiz/view/widgets/custom_slide_transition.dart';
@@ -67,8 +66,7 @@ class HomePage extends StatelessWidget {
                     }),
               ],
             ),
-   const SizedBox(height: 32),
-           
+            const SizedBox(height: 32),
           ],
         ),
       ),

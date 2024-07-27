@@ -3,7 +3,6 @@ import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/view/screens/quiz_page.dart';
 import 'package:movie_quiz/view/widgets/custom_button.dart';
 import 'package:movie_quiz/view/widgets/custom_slide_transition.dart';
-
 import 'package:movie_quiz/view/widgets/custom_text_field.dart';
 
 class TeamsNamePage extends StatefulWidget {
