@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:movie_quiz/constants.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({
+   CustomTextField({
     required this.labelText,
     required this.controller,
     this.keyboardType = TextInputType.text,
      this.errorMsg='ما تقول كام يعم',
     super.key,
+    this.inputFormatters
   });
 
   final String labelText;
   final TextEditingController controller;
   final TextInputType keyboardType;
   final String errorMsg;
+  List<TextInputFormatter>? inputFormatters;
   
   @override
   Widget build(BuildContext context) {
@@ -24,6 +27,7 @@ class CustomTextField extends StatelessWidget {
         }
         return null;
       },
+      inputFormatters: inputFormatters,
       cursorColor: kYellow,
       style: const TextStyle(color: kWhite, fontFamily: font),
       controller: controller,

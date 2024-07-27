@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/main.dart';
-import 'package:movie_quiz/models/data_file.dart';
+import 'package:movie_quiz/models/question_model.dart';
 import 'package:movie_quiz/utilities.dart';
 import 'package:movie_quiz/view/screens/results_page.dart';
 import 'package:movie_quiz/view/widgets/custom_button.dart';
@@ -33,7 +33,7 @@ class _QuizPageState extends State<QuizPage> {
   final CountdownController controller = CountdownController(autoStart: true);
   bool quizStarted = false;
   int totalQuestionsAsked = 0;
-  //List<String> docsIds = [];
+  
   List<Question> data = [];
   bool isLoading = true;
 
@@ -41,7 +41,7 @@ class _QuizPageState extends State<QuizPage> {
   void initState() {
     super.initState();
     initializeQuiz();
-    print(docsIds);
+   
   }
 
   Future<void> initializeQuiz() async {
@@ -50,12 +50,12 @@ class _QuizPageState extends State<QuizPage> {
     data = await fetchQuestions(
         (widget.questionsNumber * widget.teamNames.length), docsIds);
     if (data.isNotEmpty) {
-      questionOrder = List.generate(data.length, (index) => index);
+      questionOrder = List.generate(data.length, (indexToStartFrom) => indexToStartFrom);
       currentQuestion = questionOrder[0];
     } else {
       currentQuestion = -1;
     }
-
+  
     setState(() {
       isLoading = false;
     });
@@ -74,12 +74,13 @@ class _QuizPageState extends State<QuizPage> {
       if (totalQuestionsAsked >=
           widget.teamNames.length * widget.questionsNumber) {
         currentQuestion = -1;
-        indexToStartFrom=indexToStartFrom+totalQuestionsAsked-1;
-        print('----------\nindexToStartFrom: $indexToStartFrom\n--------------\n');
+        indexToStartFrom=indexToStartFrom+totalQuestionsAsked;
+     
       } else {
         teamIndex = (teamIndex + 1) % widget.teamNames.length;
         currentQuestion =
             questionOrder[totalQuestionsAsked % questionOrder.length];
+         
         controller.restart();
       }
     });
@@ -110,7 +111,8 @@ class _QuizPageState extends State<QuizPage> {
           color: kBackgroundColor,
         ),
         child: isLoading
-            ? Center(
+            ?
+            Center(
                 child: WidgetAnimator(
                   atRestEffect: WidgetRestingEffects.pulse(),
                   child: Image.asset(logoWhite),

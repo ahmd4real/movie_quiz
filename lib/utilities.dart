@@ -1,5 +1,11 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:movie_quiz/models/data_file.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:movie_quiz/constants.dart';
+import 'package:movie_quiz/models/question_model.dart';
+import 'package:movie_quiz/view/screens/quiz_page.dart';
 
 //this function is used to fetch the indexes or docIds of the questions
 //store in list so we can shuffle it later
@@ -19,13 +25,16 @@ Future<List<Question>> fetchQuestions(
   List<Question> questions = [];
 
   // Fetch the questions from Firestore
-  for (int i = 0; i < numberOfQuestions; i++) {
+  for (int i = indexToStartFrom; i < numberOfQuestions+indexToStartFrom; i++) {
     DocumentSnapshot snapshot =
         await firestore.collection('Questions').doc(docsIds[i]).get();
     questions.add(Question.fromFirestore(snapshot));
-    //print('Question added: ${snapshot.data()}');
-    print('Question added: ${questions[i].question}');
+   
+    
+  
   }
+
+  
 
   return questions;
 }
@@ -36,47 +45,128 @@ Future<int> getDocumentCount(String collectionName) async {
   return snapshot.docs.length;
 }
 
-int LastQuestionId=0;
-
-
+int lastQuestionId = 0;
 
 //add questions to firestore
-void addQuestions ({required String question,
+Future<bool> addQuestions(
+    {required String question,
     required List<String> options,
-    required int answerIndex}) async{
-  CollectionReference questions =
-      FirebaseFirestore.instance.collection('Questions');
+    required int answerIndex}) async {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  // print('number of questions stored $numberOfQuestionsStored');
-  LastQuestionId =await getDocumentCount('Questions');
+  lastQuestionId = await getDocumentCount('Questions');
 
-  firestore
-      .collection('Questions')
-      .doc((LastQuestionId+1).toString())
-      .set({
-        "question": question,
-        "options": options,
-        "answerIndex": answerIndex-1
-      })
-      .then((value) => print("Question Added"))
-      .catchError((error) => print("Failed to add question: $error"));
-
-}
-
-
-
-Future<void> printDocumentById(String docId) async {
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  
-  // Get the document by its ID
-  DocumentSnapshot document = await firestore.collection('Questions').doc(docId).get();
-  
-  // Print the document ID and its data
-  if (document.exists) {
-    //print('Document ID: ${document.id}');
-    print('Document Data: ${document.data()}');
-  } else {
-    print('No document found with ID: $docId');
+  try {
+    await firestore
+        .collection('Questions')
+        .doc((lastQuestionId + 1).toString())
+        .set({
+      "question": question,
+      "options": options,
+      "answerIndex": answerIndex - 1
+    });
+    return true;
+  } catch (error) {
+    return false;
   }
 }
+
+// Future<void> printDocumentById(String docId) async {
+//   final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+//   DocumentSnapshot document =
+//       await firestore.collection('Questions').doc(docId).get();
+
+//   if (document.exists) {
+  
+//   } else {
+    
+//   }
+// }
+
+
+
+Future<bool> showAlertDialog(BuildContext context, String question, String answer) async {
+  bool sure = false;
+  sure = await showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        backgroundColor: kBackgroundColor,
+        content: Text(
+          "متأكد ان " "$answer" " هو الاجابة الصحيحة؟",
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontSize: 24,
+            color: kYellow,
+            fontFamily: font,
+          ),
+        ),
+        actions: [
+          Row(
+            children: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(true); // Return true when "ايوه" is pressed
+                },
+                child: const Text('ايوه',
+                    style: TextStyle(
+                        fontSize: 12, color: kYellow, fontFamily: font)),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(false); // Return false when "لا يعم" is pressed
+                },
+                child: const Text('لا يعم',
+                    style: TextStyle(
+                        fontSize: 12, color: kYellow, fontFamily: font)),
+              ),
+            ],
+          ),
+        ],
+      );
+    },
+  );
+  return sure ?? false; 
+}
+
+
+class WorkSpace extends StatelessWidget {
+  const WorkSpace({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const SpinKitCircle(
+      color: kYellow,
+      size: 120.0,
+    );
+  }
+}
+
+
+
+void showAutoDismissDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // Start a timer to automatically dismiss the dialog
+        Timer(const Duration(seconds: 2), () {
+          Navigator.of(context).pop(true);
+        });
+
+        return const AlertDialog(
+          backgroundColor: kBackgroundColor,
+          //title: Text('Auto Dismiss Dialog'),
+          content: Text("ابيض يا دولي ",
+          textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 24,
+                                          color: kYellow,
+                                          fontFamily: font,
+                                          fontWeight: FontWeight.bold
+          
+          ),
+        ));
+      },
+    );
+  }
