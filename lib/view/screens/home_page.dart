@@ -16,58 +16,53 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kBackgroundColor,
+      appBar: AppBar(),
       body: Form(
         key: formKey,
-        child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 32.0),
-              child: SizedBox(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 32.0),
+          child: ListView(
+            children: [
+              SizedBox(
                 height: MediaQuery.of(context).size.height * 0.4,
                 width: double.infinity,
                 child: Image.asset(logoWhite),
               ),
-            ),
-            Padding(
-                padding: const EdgeInsets.all(32.0),
-                child: CustomTextField(
-                  keyboardType: TextInputType.number,
-                  labelText: 'هتلعبوا كام تيم ؟!',
-                  controller: controller,
-                )),
-            Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32),
-                child: CustomTextField(
-                  keyboardType: TextInputType.number,
-                  labelText: 'كام سؤال لكل تيم؟!',
-                  controller: questionsNumberController,
-                )),
-            const SizedBox(height: 24),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CustomButton(
-                    buttonWidth: 0.83,
-                    text: "اللي بعده",
-                    onTap: () {
-                      if (formKey.currentState!.validate()) {
-                        numberOfTeams = int.parse(controller.text);
-                        questionsNumber =
-                            int.parse(questionsNumberController.text);
-                        Navigator.pushReplacement(
-                          context,
-                          PageTransition(TeamsNamePage(
-                            numberOfTeams: numberOfTeams,
-                            questionsNumber: questionsNumber,
-                          )),
-                        );
-                      }
-                    }),
-              ],
-            ),
-            const SizedBox(height: 32),
-          ],
+              CustomTextField(
+                keyboardType: TextInputType.number,
+                labelText: 'هتلعبوا كام تيم ؟!',
+                controller: controller,
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              CustomTextField(
+                keyboardType: TextInputType.number,
+                labelText: 'كام سؤال لكل تيم؟!',
+                controller: questionsNumberController,
+              ),
+              const SizedBox(height: 24),
+              CustomButton(
+                  color1: kPink,
+                  color2: kOrange,
+                  text: "اللي بعده",
+                  onTap: () {
+                    if (formKey.currentState!.validate()) {
+                      numberOfTeams = int.parse(controller.text);
+                      questionsNumber =
+                          int.parse(questionsNumberController.text);
+                      Navigator.push(
+                        context,
+                        PageTransition(TeamsNamePage(
+                          numberOfTeams: numberOfTeams,
+                          questionsNumber: questionsNumber,
+                        )),
+                      );
+                    }
+                  }),
+              const SizedBox(height: 32),
+            ],
+          ),
         ),
       ),
     );

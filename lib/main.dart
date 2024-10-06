@@ -1,18 +1,19 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/firebase_options.dart';
 import 'package:movie_quiz/utilities.dart';
 import 'package:movie_quiz/view/screens/home_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
-List<String> docsIds = [];
-void main() async{
-   WidgetsFlutterBinding.ensureInitialized();
-   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-   );
 
-  
+List<String> docsIds = [];
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MovieQuiz());
   docsIds = await fetchIndexes();
   docsIds.shuffle();
@@ -31,11 +32,16 @@ class MovieQuiz extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      theme: ThemeData(),
+      theme: ThemeData(
+        scaffoldBackgroundColor: background,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: kBackgroundColor,
+          iconTheme:  IconThemeData(color: Colors.amber),
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       locale: const Locale('ar'),
       home: SafeArea(child: HomePage()),
-      
     );
   }
 }

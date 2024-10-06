@@ -17,17 +17,20 @@ Future<List<String>> fetchIndexes() async {
 //This funtsion is used to fetch or prepare the questions,which it takes
 //number of questions that teams entered,and list of docIds to use as index for the questions
 //stored in database and return a list of questions
+
 Future<List<Question>> fetchQuestions(
     int numberOfQuestions, List<String> docsIds) async {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   List<Question> questions = [];
-
+  if (indexToStartFrom == docsIds.length) {
+    indexToStartFrom = 0;
+  }
   // Fetch the questions from Firestore
   for (int i = indexToStartFrom;
       i < numberOfQuestions + indexToStartFrom;
       i++) {
     DocumentSnapshot snapshot =
-        await firestore.collection('Questions').doc(docsIds[i]).get();
+        await firestore.collection('Questions').doc(docsIds[i + 1]).get();
     questions.add(Question.fromFirestore(snapshot));
   }
 
@@ -65,19 +68,6 @@ Future<bool> addQuestions(
     return false;
   }
 }
-
-// Future<void> printDocumentById(String docId) async {
-//   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-//   DocumentSnapshot document =
-//       await firestore.collection('Questions').doc(docId).get();
-
-//   if (document.exists) {
-
-//   } else {
-
-//   }
-// }
 
 Future<bool> showAlertDialog(
     BuildContext context, String question, String answer) async {
@@ -125,8 +115,6 @@ Future<bool> showAlertDialog(
   );
   return sure ?? false;
 }
-
-
 
 void showAutoDismissDialog(BuildContext context) {
   showDialog(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
+import 'package:movie_quiz/main.dart';
 import 'package:movie_quiz/view/screens/add_questions_page.dart';
 import 'package:movie_quiz/view/screens/home_page.dart';
+import 'package:movie_quiz/view/screens/quiz_page.dart';
 import 'package:movie_quiz/view/widgets/custom_button.dart';
 import 'package:movie_quiz/view/widgets/custom_image_button.dart';
 import 'package:movie_quiz/view/widgets/custom_slide_transition.dart';
@@ -93,7 +95,9 @@ class ResultsPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CustomButton(
-                    buttonWidth: 0.83,
+                   color1: kPink,
+                  color2: kOrange,
+                    //buttonWidth: 0.83,
                     text: " عاوز تضيف سؤال؟؟!",
                     onTap: () {
                       Navigator.push(context, PageTransition(const AddQuestionsPage()));
@@ -108,6 +112,11 @@ class ResultsPage extends StatelessWidget {
                   color: kYellow,
                   radiusRatio: .2,
                   ontap: () {
+                    if (indexToStartFrom==docsIds.length-1){
+                      indexToStartFrom=0;
+                      docsIds.shuffle();
+                    }
+                    print('Index we start from : $indexToStartFrom');
                     Navigator.pushReplacement(
                         context, PageTransition(HomePage()));
                   },

@@ -50,46 +50,41 @@ class _TeamsNamePageState extends State<TeamsNamePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kBackgroundColor,
+      appBar: AppBar(),
       body: Form(
         key: formKey,
-        child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 32.0),
-              child: SizedBox(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 32.0),
+          child: ListView(
+            children: [
+              SizedBox(
                 height: MediaQuery.of(context).size.height * 0.4,
                 width: double.infinity,
                 child: Image.asset(logoWhite),
               ),
-            ),
-            for (int i = 0; i < widget.numberOfTeams; i++)
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
-                child: CustomTextField(
-                  errorMsg: 'الاسم ياااا',
-                  labelText: "فريق ${i + 1}",
-                  controller: controllers[i],
+              for (int i = 0; i < widget.numberOfTeams; i++)
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: CustomTextField(
+                    errorMsg: 'الاسم ياااا',
+                    labelText: "فريق ${i + 1}",
+                    controller: controllers[i],
+                  ),
                 ),
+              const SizedBox(height: 8),
+              CustomButton(
+                color1: kPink,
+                color2: kOrange,
+                text: "اللي بعده",
+                onTap: () {
+                  if (formKey.currentState!.validate()) {
+                    saveTeamNames();
+                  }
+                },
               ),
-            const SizedBox(height: 24),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CustomButton(
-                  buttonWidth: 0.83,
-                  text: "اللي بعده",
-                  onTap: () {
-                    if (formKey.currentState!.validate()) {
-                      saveTeamNames();
-                    }
-                  },
-                )
-              ],
-            ),
-            const SizedBox(height: 32),
-          ],
+              const SizedBox(height: 32),
+            ],
+          ),
         ),
       ),
     );
