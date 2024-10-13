@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/main.dart';
@@ -30,23 +31,28 @@ class ResultsPage extends StatelessWidget {
     var sortedMap = scoreMap.entries.toList()
       ..sort((a, b) => b.value.compareTo(a.value));
 
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: kBackgroundColor,
-        body: Column(
+    return Scaffold(
+     
+      backgroundColor: kBackgroundColor,
+      body: Padding(
+        padding: const EdgeInsets.only(
+          top:24,
+          left: 16,
+          right: 16, 
+
+        ),
+        child: ListView(
           children: [
-            Expanded(
-              child: ListView.builder(
-                padding: EdgeInsets.all(w / 30),
-                itemCount: teamNames.length,
-                itemBuilder: (BuildContext c, int i) {
-                  return Container(
+           for (int i = 0; i < teamNames.length; i++)
+            BounceInUp(
+              delay: Duration(milliseconds: 100 * i),
+              child: Container(
                     width: MediaQuery.of(context).size.width * 0.5,
                     margin: EdgeInsets.only(bottom: w / 20),
                     height: w / 4.5,
                     decoration: BoxDecoration(
-                      color: kQuiestionColor,
-                      border: Border.all(color: kYellow, width: 3),
+                      color: kDarkPurple,
+                      border: Border.all(color: Colors.white30, width: 2),
                       borderRadius: const BorderRadius.all(
                         Radius.circular(20),
                       ),
@@ -66,12 +72,14 @@ class ResultsPage extends StatelessWidget {
                             maxWidth: MediaQuery.of(context).size.width / 3,
                           ),
                           child: FittedBox(
+                            fit: BoxFit.contain,
                             child: Text(
+                              
                               sortedMap[i].key,
                               overflow: TextOverflow.fade,
                               style: const TextStyle(
                                   fontFamily: font,
-                                  color: kYellow,
+                                  color: Colors.white,
                                   fontSize: 32,
                                   fontWeight: FontWeight.w900),
                             ),
@@ -81,35 +89,23 @@ class ResultsPage extends StatelessWidget {
                           '$questionsNumber/${sortedMap[i].value}',
                           style: const TextStyle(
                               fontFamily: font,
-                              color: kYellow,
+                              color: Colors.white70,
                               fontSize: 32,
                               fontWeight: FontWeight.w900),
                         ),
                       ),
                     ),
-                  );
-                },
-              ),
+                  ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Column(
               children: [
-                CustomButton(
-                   color1: kPink,
-                  color2: kOrange,
-                    //buttonWidth: 0.83,
-                    text: " عاوز تضيف سؤال؟؟!",
-                    onTap: () {
-                      Navigator.push(context, PageTransition(const AddQuestionsPage()));
-                    }),
-              ],
-            ),
-            const SizedBox(height: 32),
+                
+                const SizedBox(height: 16), 
             Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CustomImageButton(
                   img: buttonImg,
-                  color: kYellow,
+                  color:Colors.white10,// const Color.fromARGB(8, 255, 255, 255),
                   radiusRatio: .2,
                   ontap: () {
                     if (indexToStartFrom==docsIds.length-1){
@@ -120,9 +116,22 @@ class ResultsPage extends StatelessWidget {
                     Navigator.pushReplacement(
                         context, PageTransition(HomePage()));
                   },
-                  shadowColor: Colors.black87,
-                  borderColor: const Color.fromARGB(255, 0, 0, 0),
+                  shadowColor: kDarkPurple,
+                  borderColor: Colors.white24,
                 )),
+                CustomButton(
+                   color1: kPink,
+                  color2: kDarkPurple,
+                  borderColor: Colors.white54,
+                    //buttonWidth: 0.83,
+                    text: " عاوز تضيف سؤال؟؟!",
+                    onTap: () {
+                      Navigator.push(context, PageTransition(const AddQuestionsPage()));
+                    }),
+                    
+              ],
+            ),
+            
           ],
         ),
       ),

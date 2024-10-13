@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/view/screens/quiz_page.dart';
@@ -63,18 +64,20 @@ class _TeamsNamePageState extends State<TeamsNamePage> {
                 child: Image.asset(logoWhite),
               ),
               for (int i = 0; i < widget.numberOfTeams; i++)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: CustomTextField(
-                    errorMsg: 'الاسم ياااا',
-                    labelText: "فريق ${i + 1}",
-                    controller: controllers[i],
+                FadeInLeft(delay: Duration(milliseconds: 100 * i),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: CustomTextField(
+                      errorMsg: 'الاسم ياااا',
+                      labelText: "فريق ${i + 1}",
+                      controller: controllers[i],
+                    ),
                   ),
                 ),
               const SizedBox(height: 8),
               CustomButton(
-                color1: kPink,
-                color2: kOrange,
+                color1: klightRed,
+                color2: kDarkPurple,
                 text: "اللي بعده",
                 onTap: () {
                   if (formKey.currentState!.validate()) {

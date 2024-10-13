@@ -41,7 +41,7 @@ class MovieQuiz extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       locale: const Locale('ar'),
-      home: SafeArea(child: HomePage()),
+      home:  HomePage(),
     );
   }
 }

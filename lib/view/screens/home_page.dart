@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/view/screens/teams_name.dart';
@@ -28,38 +29,46 @@ class HomePage extends StatelessWidget {
                 width: double.infinity,
                 child: Image.asset(logoWhite),
               ),
-              CustomTextField(
-                keyboardType: TextInputType.number,
-                labelText: 'هتلعبوا كام تيم ؟!',
-                controller: controller,
+              BounceInLeft(
+                child: CustomTextField(
+                  keyboardType: TextInputType.number,
+                  labelText: 'هتلعبوا كام تيم ؟!',
+                  controller: controller,
+                ),
               ),
               const SizedBox(
                 height: 16,
               ),
-              CustomTextField(
-                keyboardType: TextInputType.number,
-                labelText: 'كام سؤال لكل تيم؟!',
-                controller: questionsNumberController,
+              BounceInLeft(
+                delay: const Duration(milliseconds: 500),
+                child: CustomTextField(
+                  keyboardType: TextInputType.number,
+                  labelText: 'كام سؤال لكل تيم؟!',
+                  controller: questionsNumberController,
+                ),
               ),
               const SizedBox(height: 24),
-              CustomButton(
-                  color1: kPink,
-                  color2: kOrange,
-                  text: "اللي بعده",
-                  onTap: () {
-                    if (formKey.currentState!.validate()) {
-                      numberOfTeams = int.parse(controller.text);
-                      questionsNumber =
-                          int.parse(questionsNumberController.text);
-                      Navigator.push(
-                        context,
-                        PageTransition(TeamsNamePage(
-                          numberOfTeams: numberOfTeams,
-                          questionsNumber: questionsNumber,
-                        )),
-                      );
-                    }
-                  }),
+              BounceInLeft(
+                delay: const Duration(milliseconds: 750),
+                child: CustomButton(
+                    color1: kPink,
+                    color2: kDarkPurple,
+                    text: "اللي بعده",
+                    onTap: () {
+                      if (formKey.currentState!.validate()) {
+                        numberOfTeams = int.parse(controller.text);
+                        questionsNumber =
+                            int.parse(questionsNumberController.text);
+                        Navigator.push(
+                          context,
+                          PageTransition(TeamsNamePage(
+                            numberOfTeams: numberOfTeams,
+                            questionsNumber: questionsNumber,
+                          )),
+                        );
+                      }
+                    }),
+              ),
               const SizedBox(height: 32),
             ],
           ),

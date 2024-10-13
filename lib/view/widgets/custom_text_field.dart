@@ -16,6 +16,7 @@ class CustomTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final String errorMsg;
   List<TextInputFormatter>? inputFormatters;
+  Color borderColor = Colors.white24; 
 
   @override
   Widget build(BuildContext context) {
@@ -34,17 +35,17 @@ class CustomTextField extends StatelessWidget {
       decoration: InputDecoration(
         errorStyle: const TextStyle(
             color: kErrorBorderColor, fontFamily: font, fontSize: 16),
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12.0)),
-          borderSide: BorderSide(color: kWhite),
+        border:  OutlineInputBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(12.0)),
+          borderSide: BorderSide(color: borderColor),
         ),
-        focusedBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12.0)),
-          borderSide: BorderSide(color: Colors.amber, width: 2),
+        focusedBorder:  OutlineInputBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(12.0)),
+          borderSide: BorderSide(color: Colors.white38, width: 2),
         ),
-        enabledBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12.0)),
-          borderSide: BorderSide(color: Colors.amber, width: 2),
+        enabledBorder:  OutlineInputBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(12.0)),
+          borderSide: BorderSide(color: borderColor, width: 2),
         ),
         errorBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(12.0)),
@@ -55,9 +56,9 @@ class CustomTextField extends StatelessWidget {
           borderSide: BorderSide(color: kErrorBorderColor),
         ),
         labelText: labelText,
-        hintStyle: const TextStyle(color: Colors.amber),
+       // hintStyle: const TextStyle(color: Colors.amber),
         labelStyle:
-            const TextStyle(color: Colors.amber, fontFamily: font, fontSize: 20),
+             TextStyle(color: kWhite, fontFamily: font, fontSize: 20),
       ),
     );
   }

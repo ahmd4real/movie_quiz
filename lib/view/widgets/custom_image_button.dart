@@ -29,20 +29,14 @@ class CustomImageButton extends StatelessWidget {
                 spreadRadius: 1,
                 blurRadius: 15)
           ]),
-      child: Material(
-        shape: const CircleBorder(),
-        child: InkWell(
-          splashColor: Colors.black,
-          onTap: ontap,
-          customBorder: const CircleBorder(),
-          child: Ink(
-            decoration: const BoxDecoration(shape: BoxShape.circle),
-            child: CircleAvatar(
-              backgroundColor: color,
-              backgroundImage: AssetImage(img),
-              radius: MediaQuery.of(context).size.width * radiusRatio,
-            ),
-          ),
+      child: GestureDetector(
+       
+        onTap: ontap,
+        //customBorder: const CircleBorder(),
+        child: CircleAvatar(
+          backgroundColor: color,
+          backgroundImage: AssetImage(img),
+          radius: MediaQuery.of(context).size.width * radiusRatio,
         ),
       ),
     );

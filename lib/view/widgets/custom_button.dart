@@ -7,8 +7,10 @@ class CustomButton extends StatelessWidget {
       required this.color1,
       required this.color2,
       required this.text,
+      this.borderColor = Colors.white54,
       this.onTap});
   final Color color1, color2;
+  Color borderColor;
   final String text;
   void Function()? onTap;
 
@@ -23,7 +25,7 @@ class CustomButton extends StatelessWidget {
           height: MediaQuery.of(context).size.height / 12,
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
           decoration: BoxDecoration(
-            border: Border.all(width: 2,color: Colors.amber),
+              border: Border.all(width: 2, color: borderColor),
               borderRadius: BorderRadius.circular(16),
               gradient: LinearGradient(colors: [color1, color2])),
           child: ConstrainedBox(

@@ -27,7 +27,8 @@ Color kOrange=const Color(0xffff9332);
 Color kDarkPurple=const Color(0xff2c2056);
 
 //fonts
-const String font = 'Marhey';
+
+const String font = 'Lamar';
 
 
 //const Strings

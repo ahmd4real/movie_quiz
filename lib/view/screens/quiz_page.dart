@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/main.dart';
@@ -127,25 +128,18 @@ class _QuizPageState extends State<QuizPage> {
                         onNextQuestion: nextQuestion,
                         teamNames: widget.teamNames,
                       )
-                    : Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CustomButton(
-                                color1: kPink,
-                                color2: kOrange,
-                                text: "مين اللي كسب",
-                                onTap: () {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      PageTransition(ResultsPage(
-                                          questionsNumber:
-                                              widget.questionsNumber,
-                                          teamNames: widget.teamNames,
-                                          score: score)));
-                                }),
-                          ],
-                        ),
+                    : Bounce(
+                      
+                        child: Image.asset(logoWhite),
+                        duration: Duration(seconds: 3),
+                        onFinish: (direction) {
+                          Navigator.pushReplacement(
+                              context,
+                              PageTransition(ResultsPage(
+                                  questionsNumber: widget.questionsNumber,
+                                  teamNames: widget.teamNames,
+                                  score: score)));
+                        },
                       )
                 : Center(
                     child: Countdown(
@@ -212,35 +206,37 @@ class QuizQuestion extends StatelessWidget {
           ),
         ),
         Center(
-          child: Container(
-              decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: kDarkPurple.withOpacity(0.5),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-                  border: Border.all(color: Colors.white24),
-                  borderRadius: BorderRadius.circular(24),
-                  color: Colors.white10),
-              height: MediaQuery.of(context).size.height * 0.3,
-              width: MediaQuery.of(context).size.width / 1,
-              margin: const EdgeInsets.only(top: 8.0),
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: Text(question.question,
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.clip,
-                      style: const TextStyle(
-                          fontSize: 24.0,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w800,
-                          fontFamily: font)),
-                ),
-              )),
+          child: BounceInDown(
+            child: Container(
+                decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: kDarkPurple.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                    border: Border.all(color: Colors.white24),
+                    borderRadius: BorderRadius.circular(24),
+                    color: Colors.white10),
+                height: MediaQuery.of(context).size.height * 0.3,
+                width: MediaQuery.of(context).size.width / 1,
+                margin: const EdgeInsets.only(top: 8.0),
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: Text(question.question,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.clip,
+                        style: const TextStyle(
+                            fontSize: 24.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w800,
+                            fontFamily: font)),
+                  ),
+                )),
+          ),
         ),
         const SizedBox(height: 20.0),
         ...question.options.asMap().entries.map((entry) {
@@ -259,21 +255,21 @@ class QuizQuestion extends StatelessWidget {
             buttonColor = kDarkPurple;
           }
 
-          return AnswerButton(
-              answer: answer,
-              controller: controller,
-              selectedAnswerIndex: selectedAnswerIndex,
-              onAnswerSelected: onAnswerSelected,
-              idx: idx,
-              buttonColor: buttonColor);
-        }
-        ),
-        
+          return BounceInUp(
+            child: AnswerButton(
+                answer: answer,
+                controller: controller,
+                selectedAnswerIndex: selectedAnswerIndex,
+                onAnswerSelected: onAnswerSelected,
+                idx: idx,
+                buttonColor: buttonColor),
+          );
+        }),
         const SizedBox(height: 16),
         Center(
           child: Countdown(
               controller: controller,
-              seconds: 100,
+              seconds: 60,
               build: (_, double time) => Text(
                     time.toInt().toString(),
                     style: const TextStyle(
@@ -285,7 +281,7 @@ class QuizQuestion extends StatelessWidget {
               interval: const Duration(seconds: 1),
               onFinished: () {
                 ScaffoldMessenger.of(context).showSnackBar(
-                   SnackBar(
+                  SnackBar(
                     backgroundColor: kDarkPurple.withOpacity(0.5),
                     duration: const Duration(milliseconds: 500),
                     content: const Center(

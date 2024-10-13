@@ -82,6 +82,26 @@ flutter:
     - family: Marhey
       fonts:
         - asset: assets/fonts/Marhey-VariableFont_wght.ttf
+
+    - family: Asmaa
+      fonts:
+        - asset: assets/fonts/Asmaa Font.otf
+
+    - family: BoutrosART
+      fonts:
+        - asset: assets/fonts/BoutrosART-Medium.otf
+
+    - family: Dawshah
+      fonts:
+        - asset: assets/fonts/Dawshah-Regular.otf
+
+    - family: Lamar
+      fonts:
+        - asset: assets/fonts/Lamar Font.otf
+    
+    - family: Shoroq
+      fonts:
+        - asset: assets/fonts/Shoroq Font.ttf    
     #       - asset: fonts/Schyler-Italic.ttf
     #         style: italic
 

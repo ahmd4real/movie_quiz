@@ -148,7 +148,7 @@ class _AddQuestionsPageState extends State<AddQuestionsPage> {
                 children: [
                   CustomButton(
                      color1: kPink,
-                  color2: kOrange,
+                    color2: kDarkPurple,
                     //buttonWidth: 0.83,
                     text: "ودي",
                     onTap: () async {

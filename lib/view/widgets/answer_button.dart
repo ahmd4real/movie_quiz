@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/view/widgets/custom_button.dart';
@@ -21,14 +22,16 @@ class AnswerButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomButton(
-      color1: buttonColor,
-      color2: buttonColor,
-      text: answer,
-      onTap: () {
-        controller.pause();
-        selectedAnswerIndex == null ? onAnswerSelected(idx) : null;
-      },
+    return BounceInDown(
+      child: CustomButton(
+        color1: buttonColor,
+        color2: buttonColor,
+        text: answer,
+        onTap: () {
+          controller.pause();
+          selectedAnswerIndex == null ? onAnswerSelected(idx) : null;
+        },
+      ),
     );
 
     // ignore: dead_code
