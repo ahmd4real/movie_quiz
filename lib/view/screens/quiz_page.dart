@@ -6,7 +6,6 @@ import 'package:movie_quiz/models/question_model.dart';
 import 'package:movie_quiz/utilities.dart';
 import 'package:movie_quiz/view/screens/results_page.dart';
 import 'package:movie_quiz/view/widgets/answer_button.dart';
-import 'package:movie_quiz/view/widgets/custom_button.dart';
 import 'package:movie_quiz/view/widgets/custom_slide_transition.dart';
 import 'package:timer_count_down/timer_controller.dart';
 import 'package:timer_count_down/timer_count_down.dart';
@@ -130,8 +129,7 @@ class _QuizPageState extends State<QuizPage> {
                       )
                     : Bounce(
                       
-                        child: Image.asset(logoWhite),
-                        duration: Duration(seconds: 3),
+                        duration: const Duration(seconds: 3),
                         onFinish: (direction) {
                           Navigator.pushReplacement(
                               context,
@@ -140,6 +138,8 @@ class _QuizPageState extends State<QuizPage> {
                                   teamNames: widget.teamNames,
                                   score: score)));
                         },
+                      
+                        child: Image.asset(logoWhite),
                       )
                 : Center(
                     child: Countdown(
