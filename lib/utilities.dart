@@ -30,7 +30,7 @@ Future<List<Question>> fetchQuestions(
       i < numberOfQuestions + indexToStartFrom;
       i++) {
     DocumentSnapshot snapshot =
-        await firestore.collection('Questions').doc(docsIds[i + 1]).get();
+        await firestore.collection('Questions').doc(docsIds[i]).get();
     questions.add(Question.fromFirestore(snapshot));
   }
 
@@ -66,7 +66,7 @@ Future<bool> addQuestions(
     return true;
   } catch (error) {
     return false;
-  }
+  } 
 }
 
 Future<bool> showAlertDialog(

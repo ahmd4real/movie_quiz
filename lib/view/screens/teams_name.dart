@@ -1,6 +1,8 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
+import 'package:movie_quiz/main.dart';
+import 'package:movie_quiz/utilities.dart';
 import 'package:movie_quiz/view/screens/quiz_page.dart';
 import 'package:movie_quiz/view/widgets/custom_button.dart';
 import 'package:movie_quiz/view/widgets/custom_slide_transition.dart';
@@ -20,9 +22,20 @@ class _TeamsNamePageState extends State<TeamsNamePage> {
   GlobalKey<FormState> formKey = GlobalKey();
   @override
   void initState() {
-    super.initState();
+    loadIds();
     for (int i = 0; i < widget.numberOfTeams; i++) {
       controllers.add(TextEditingController());
+    }
+    super.initState();
+    
+  }
+
+  Future<void> loadIds() async {
+    if (docsIds.isEmpty ){
+    docsIds = await fetchIndexes();
+  docsIds.shuffle();
+    }else {
+      print('**********\nids already loaded\n**********');
     }
   }
 
@@ -64,7 +77,7 @@ class _TeamsNamePageState extends State<TeamsNamePage> {
                 child: Image.asset(logoWhite),
               ),
               for (int i = 0; i < widget.numberOfTeams; i++)
-                FadeInLeft(delay: Duration(milliseconds: 100 * i),
+                BounceInUp(delay: Duration(milliseconds: 100 * i),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: CustomTextField(
@@ -82,6 +95,8 @@ class _TeamsNamePageState extends State<TeamsNamePage> {
                 onTap: () {
                   if (formKey.currentState!.validate()) {
                     saveTeamNames();
+                    
+                    print('Docs ids: $docsIds');
                   }
                 },
               ),

@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
+import 'package:movie_quiz/main.dart';
 import 'package:movie_quiz/view/screens/teams_name.dart';
 import 'package:movie_quiz/view/widgets/custom_button.dart';
 import 'package:movie_quiz/view/widgets/custom_slide_transition.dart';
@@ -29,7 +30,7 @@ class HomePage extends StatelessWidget {
                 width: double.infinity,
                 child: Image.asset(logoWhite),
               ),
-              BounceInLeft(
+              BounceInDown(
                 child: CustomTextField(
                   keyboardType: TextInputType.number,
                   labelText: 'هتلعبوا كام تيم ؟!',
@@ -39,7 +40,7 @@ class HomePage extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
-              BounceInLeft(
+              BounceInDown(
                 delay: const Duration(milliseconds: 500),
                 child: CustomTextField(
                   keyboardType: TextInputType.number,
@@ -48,7 +49,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24),
-              BounceInLeft(
+              BounceInDown(
                 delay: const Duration(milliseconds: 750),
                 child: CustomButton(
                     color1: kPink,
@@ -56,6 +57,7 @@ class HomePage extends StatelessWidget {
                     text: "اللي بعده",
                     onTap: () {
                       if (formKey.currentState!.validate()) {
+                        print('docsId: $docsIds');
                         numberOfTeams = int.parse(controller.text);
                         questionsNumber =
                             int.parse(questionsNumberController.text);

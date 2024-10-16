@@ -32,106 +32,107 @@ class ResultsPage extends StatelessWidget {
       ..sort((a, b) => b.value.compareTo(a.value));
 
     return Scaffold(
-     
       backgroundColor: kBackgroundColor,
       body: Padding(
         padding: const EdgeInsets.only(
-          top:24,
-          left: 16,
-          right: 16, 
-
+          top: 16,
         ),
         child: ListView(
           children: [
-           for (int i = 0; i < teamNames.length; i++)
-            BounceInUp(
-              delay: Duration(milliseconds: 100 * i),
-              child: Container(
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    margin: EdgeInsets.only(bottom: w / 20),
-                    height: w / 4.5,
-                    decoration: BoxDecoration(
-                      color: kDarkPurple,
-                      border: Border.all(color: Colors.white30, width: 2),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(20),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.5),
-                          blurRadius: 40,
-                          spreadRadius: 10,
-                        ),
-                      ],
+            for (int i = 0; i < teamNames.length; i++)
+              BounceInUp(
+                delay: Duration(milliseconds: 100 * i),
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  margin: EdgeInsets.only(bottom: w / 20, left: 16, right: 16),
+                  height: w / 4.5,
+                  decoration: BoxDecoration(
+                    color: kDarkPurple,
+                    border: Border.all(color: Colors.white30, width: 2),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(20),
                     ),
-                    child: Center(
-                      child: ListTile(
-                        title: ConstrainedBox(
-                          constraints: BoxConstraints(
-                            maxHeight: MediaQuery.of(context).size.height / 4.5,
-                            maxWidth: MediaQuery.of(context).size.width / 3,
-                          ),
-                          child: FittedBox(
-                            fit: BoxFit.contain,
-                            child: Text(
-                              
-                              sortedMap[i].key,
-                              overflow: TextOverflow.fade,
-                              style: const TextStyle(
-                                  fontFamily: font,
-                                  color: Colors.white,
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.w900),
-                            ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.5),
+                        blurRadius: 40,
+                        spreadRadius: 10,
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: ListTile(
+                      title: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxHeight: MediaQuery.of(context).size.height / 4.5,
+                          maxWidth: MediaQuery.of(context).size.width / 3,
+                        ),
+                        child: FittedBox(
+                          fit: BoxFit.contain,
+                          child: Text(
+                            sortedMap[i].key,
+                            overflow: TextOverflow.fade,
+                            style: const TextStyle(
+                                fontFamily: font,
+                                color: Colors.white,
+                                fontSize: 32,
+                                fontWeight: FontWeight.w900),
                           ),
                         ),
-                        trailing: Text(
-                          '$questionsNumber/${sortedMap[i].value}',
-                          style: const TextStyle(
-                              fontFamily: font,
-                              color: Colors.white70,
-                              fontSize: 32,
-                              fontWeight: FontWeight.w900),
-                        ),
+                      ),
+                      trailing: Text(
+                        '$questionsNumber/${sortedMap[i].value}',
+                        style: const TextStyle(
+                            fontFamily: font,
+                            color: Colors.white70,
+                            fontSize: 32,
+                            fontWeight: FontWeight.w900),
                       ),
                     ),
                   ),
-            ),
+                ),
+              ),
             Column(
               children: [
-                
-                const SizedBox(height: 16), 
-            Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CustomImageButton(
-                  img: buttonImg,
-                  color:Colors.white10,// const Color.fromARGB(8, 255, 255, 255),
-                  radiusRatio: .2,
-                  ontap: () {
-                    if (indexToStartFrom==docsIds.length-1){
-                      indexToStartFrom=0;
-                      docsIds.shuffle();
-                    }
-                    print('Index we start from : $indexToStartFrom');
-                    Navigator.pushReplacement(
-                        context, PageTransition(HomePage()));
-                  },
-                  shadowColor: kDarkPurple,
-                  borderColor: Colors.white24,
-                )),
-                CustomButton(
-                   color1: kPink,
-                  color2: kDarkPurple,
-                  borderColor: Colors.white54,
-                    //buttonWidth: 0.83,
-                    text: " عاوز تضيف سؤال؟؟!",
-                    onTap: () {
-                      Navigator.push(context, PageTransition(const AddQuestionsPage()));
-                    }),
-                    
+                const SizedBox(height: 16),
+                Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: FadeInLeft(
+                      delay: const Duration(milliseconds: 500),
+                      child: CustomImageButton(
+                        img: buttonImg,
+                        color: Colors.white10,
+                        radiusRatio: .2,
+                        ontap: () {
+                          if (indexToStartFrom == docsIds.length - 1) {
+                            indexToStartFrom = 0;
+                            docsIds.shuffle();
+                          }
+                          print('Index we start from : $indexToStartFrom');
+                          Navigator.pushReplacement(
+                              context, PageTransition(HomePage()));
+                        },
+                        shadowColor: kDarkPurple,
+                        borderColor: Colors.white24,
+                      ),
+                    )),
+                FadeInRight(
+                  delay: const Duration(milliseconds: 500),
+                  child: CustomButton(
+                      color1: kPink,
+                      color2: kDarkPurple,
+                      borderColor: Colors.white54,
+                      text: " عاوز تضيف سؤال؟؟!",
+                      onTap: () {
+                        Navigator.push(
+                            context, PageTransition(const AddQuestionsPage()));
+                      }),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
               ],
             ),
-            
           ],
         ),
       ),

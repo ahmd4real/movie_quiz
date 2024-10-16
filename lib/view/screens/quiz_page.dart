@@ -46,9 +46,14 @@ class _QuizPageState extends State<QuizPage> {
 
   Future<void> initializeQuiz() async {
     teamQuestionCount = List.filled(widget.teamNames.length, 0);
+    print(
+        '----------------\nteamQuestionCount\n $teamQuestionCount\n--------------------');
     score = List.filled(widget.teamNames.length, 0);
     data = await fetchQuestions(
         (widget.questionsNumber * widget.teamNames.length), docsIds);
+    for (int i = 0; i < data.length; i++)
+      print(
+          '----------------\ndata =Questions\n ${data[i].question}\n--------------------');
     if (data.isNotEmpty) {
       questionOrder =
           List.generate(data.length, (indexToStartFrom) => indexToStartFrom);
@@ -128,8 +133,7 @@ class _QuizPageState extends State<QuizPage> {
                         teamNames: widget.teamNames,
                       )
                     : Bounce(
-                      
-                        duration: const Duration(seconds: 3),
+                        duration: const Duration(seconds: 1),
                         onFinish: (direction) {
                           Navigator.pushReplacement(
                               context,
@@ -138,13 +142,12 @@ class _QuizPageState extends State<QuizPage> {
                                   teamNames: widget.teamNames,
                                   score: score)));
                         },
-                      
                         child: Image.asset(logoWhite),
                       )
                 : Center(
                     child: Countdown(
                         controller: controller,
-                        seconds: 30,
+                        seconds: 1,
                         build: (_, double time) => WidgetAnimator(
                             atRestEffect: WidgetRestingEffects.pulse(),
                             child: Image.asset(logoWhite)),
@@ -269,7 +272,7 @@ class QuizQuestion extends StatelessWidget {
         Center(
           child: Countdown(
               controller: controller,
-              seconds: 60,
+              seconds: 10,
               build: (_, double time) => Text(
                     time.toInt().toString(),
                     style: const TextStyle(

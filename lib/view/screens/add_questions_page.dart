@@ -147,10 +147,9 @@ class _AddQuestionsPageState extends State<AddQuestionsPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomButton(
-                     color1: kPink,
+                    color1: kPink,
                     color2: kDarkPurple,
-                    //buttonWidth: 0.83,
-                    text: "ودي",
+                    text: "ودددي",
                     onTap: () async {
                       if (formKey.currentState!.validate()) {
                         final sure = await showAlertDialog(context,
