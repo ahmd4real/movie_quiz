@@ -1,7 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_quiz/constants.dart';
-import 'package:movie_quiz/main.dart';
 import 'package:movie_quiz/view/screens/teams_name.dart';
 import 'package:movie_quiz/view/widgets/custom_button.dart';
 import 'package:movie_quiz/view/widgets/custom_slide_transition.dart';
@@ -25,11 +24,15 @@ class HomePage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 32.0),
           child: ListView(
             children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.4,
-                width: double.infinity,
-                child: Image.asset(logoWhite),
+              BounceInDown(
+                delay: const Duration(milliseconds: 500),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.33,
+                  //width: MediaQuery.of(context).size.width * 0.4,
+                  child: Image.asset(logo),
+                ),
               ),
+              const SizedBox(height: 64),
               BounceInDown(
                 child: CustomTextField(
                   keyboardType: TextInputType.number,
@@ -52,12 +55,13 @@ class HomePage extends StatelessWidget {
               BounceInDown(
                 delay: const Duration(milliseconds: 750),
                 child: CustomButton(
-                    color1: kPink,
-                    color2: kDarkPurple,
+                    //borderColor: Colors.white24,
+                    color1: kDarkPurple,
+                    color2: kPurple,
                     text: "اللي بعده",
                     onTap: () {
                       if (formKey.currentState!.validate()) {
-                        print('docsId: $docsIds');
+                        // print('docsId: $docsIds');
                         numberOfTeams = int.parse(controller.text);
                         questionsNumber =
                             int.parse(questionsNumberController.text);

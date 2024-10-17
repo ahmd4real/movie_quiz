@@ -32,7 +32,7 @@ class ResultsPage extends StatelessWidget {
       ..sort((a, b) => b.value.compareTo(a.value));
 
     return Scaffold(
-      backgroundColor: kBackgroundColor,
+      
       body: Padding(
         padding: const EdgeInsets.only(
           top: 16,
@@ -119,8 +119,8 @@ class ResultsPage extends StatelessWidget {
                 FadeInRight(
                   delay: const Duration(milliseconds: 500),
                   child: CustomButton(
-                      color1: kPink,
-                      color2: kDarkPurple,
+                      color1: kDarkPurple,
+                    color2: kPurple,
                       borderColor: Colors.white54,
                       text: " عاوز تضيف سؤال؟؟!",
                       onTap: () {

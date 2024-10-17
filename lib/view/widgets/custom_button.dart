@@ -7,7 +7,7 @@ class CustomButton extends StatelessWidget {
       required this.color1,
       required this.color2,
       required this.text,
-      this.borderColor = Colors.white54,
+      this.borderColor = Colors.white24,
       this.onTap});
   final Color color1, color2;
   Color borderColor;

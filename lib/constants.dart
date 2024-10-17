@@ -34,6 +34,6 @@ const String font = 'Lamar';
 //const Strings
 const String buttonImg = 'assets/images/buttonImg.png';
 const String logo='assets/images/logo.png';
-const String logoWhite='assets/images/logo_white.png';
+
 const String icon='assets/images/icon.png';
 

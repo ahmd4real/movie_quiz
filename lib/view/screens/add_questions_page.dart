@@ -147,8 +147,8 @@ class _AddQuestionsPageState extends State<AddQuestionsPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomButton(
-                    color1: kPink,
-                    color2: kDarkPurple,
+                   color1: kDarkPurple,
+                    color2: kPurple,
                     text: "ودددي",
                     onTap: () async {
                       if (formKey.currentState!.validate()) {

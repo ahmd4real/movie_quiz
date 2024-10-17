@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:movie_quiz/constants.dart';
 import 'package:movie_quiz/main.dart';
 import 'package:movie_quiz/models/question_model.dart';
@@ -9,7 +10,6 @@ import 'package:movie_quiz/view/widgets/answer_button.dart';
 import 'package:movie_quiz/view/widgets/custom_slide_transition.dart';
 import 'package:timer_count_down/timer_controller.dart';
 import 'package:timer_count_down/timer_count_down.dart';
-import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 
 int indexToStartFrom = 0;
 
@@ -51,9 +51,10 @@ class _QuizPageState extends State<QuizPage> {
     score = List.filled(widget.teamNames.length, 0);
     data = await fetchQuestions(
         (widget.questionsNumber * widget.teamNames.length), docsIds);
-    for (int i = 0; i < data.length; i++)
+    for (int i = 0; i < data.length; i++) {
       print(
           '----------------\ndata =Questions\n ${data[i].question}\n--------------------');
+    }
     if (data.isNotEmpty) {
       questionOrder =
           List.generate(data.length, (indexToStartFrom) => indexToStartFrom);
@@ -104,21 +105,20 @@ class _QuizPageState extends State<QuizPage> {
       });
     }
   }
-
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
       body: Container(
         decoration: const BoxDecoration(
-          color: kBackgroundColor,
+          //color: kBackgroundColor,
         ),
         child: isLoading
-            ? Center(
-                child: WidgetAnimator(
-                  atRestEffect: WidgetRestingEffects.pulse(),
-                  child: Image.asset(logoWhite),
-                ),
+            ? const Center(
+                child: SpinKitThreeBounce(
+                  size: 100,
+                  color: kYellow,),
               )
             : quizStarted
                 ? currentQuestion != -1
@@ -132,26 +132,34 @@ class _QuizPageState extends State<QuizPage> {
                         onNextQuestion: nextQuestion,
                         teamNames: widget.teamNames,
                       )
-                    : Bounce(
-                        duration: const Duration(seconds: 1),
-                        onFinish: (direction) {
-                          Navigator.pushReplacement(
-                              context,
-                              PageTransition(ResultsPage(
-                                  questionsNumber: widget.questionsNumber,
-                                  teamNames: widget.teamNames,
-                                  score: score)));
-                        },
-                        child: Image.asset(logoWhite),
+                    : Center(
+                        child: ZoomIn(
+                          duration: const Duration(seconds: 1),
+                          onFinish: (direction) {
+                            Navigator.pushReplacement(
+                                context,
+                                PageTransition(ResultsPage(
+                                    questionsNumber: widget.questionsNumber,
+                                    teamNames: widget.teamNames,
+                                    score: score)));
+                          },
+                          child: Image.asset(
+                            logo,
+                            height: MediaQuery.of(context).size.height * 0.33,
+                          ),
+                        ),
                       )
                 : Center(
                     child: Countdown(
                         controller: controller,
                         seconds: 1,
-                        build: (_, double time) => WidgetAnimator(
-                            atRestEffect: WidgetRestingEffects.pulse(),
-                            child: Image.asset(logoWhite)),
-                        interval: const Duration(milliseconds: 100),
+                        build: (_, double time) => FadeIn(
+                          child: Image.asset(
+                                logo,
+                                height: MediaQuery.of(context).size.height * 0.33,
+                              ),
+                        ),
+                        //interval: const Duration(milliseconds: 100),
                         onFinished: () {
                           setState(() {
                             quizStarted = true;

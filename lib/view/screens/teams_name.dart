@@ -72,10 +72,11 @@ class _TeamsNamePageState extends State<TeamsNamePage> {
           child: ListView(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.4,
-                width: double.infinity,
-                child: Image.asset(logoWhite),
+                height: MediaQuery.of(context).size.height * 0.33,
+                //width: double.infinity,
+                child: Image.asset(logo),
               ),
+              const SizedBox(height: 64),
               for (int i = 0; i < widget.numberOfTeams; i++)
                 BounceInUp(delay: Duration(milliseconds: 100 * i),
                   child: Padding(
@@ -89,8 +90,8 @@ class _TeamsNamePageState extends State<TeamsNamePage> {
                 ),
               const SizedBox(height: 8),
               CustomButton(
-                color1: klightRed,
-                color2: kDarkPurple,
+               color1: kDarkPurple,
+                    color2: kPurple,
                 text: "اللي بعده",
                 onTap: () {
                   if (formKey.currentState!.validate()) {
